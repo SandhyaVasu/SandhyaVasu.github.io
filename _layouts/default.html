@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sandhya Vasu — Tech & Code</title>
+  <title>{% if page.title and page.layout != "home" %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }} — Tech &amp; Code{% endif %}</title>
+  <meta name="description" content="{{ page.summary | default: site.description | strip_html | truncate: 160 }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <style>
@@ -52,6 +53,8 @@
       letter-spacing: -0.02em;
       color: var(--ink);
     }
+
+    header h1 a { color: inherit; text-decoration: none; }
 
     header p.tagline {
       margin-top: 0.4rem;
@@ -130,6 +133,9 @@
       max-width: 580px;
     }
 
+    .hero h2 a { color: inherit; text-decoration: none; }
+    .hero h2 a:hover { color: var(--accent); }
+
     .hero p {
       margin-top: 1.2rem;
       color: var(--muted);
@@ -171,6 +177,7 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
+      flex-wrap: wrap;
     }
 
     .post-tag {
@@ -217,7 +224,6 @@
       background: var(--bg-warm);
       padding: 0 0 3rem;
     }
-
 
     .section-heading.tight { margin-bottom: 0.8rem; }
 
@@ -290,6 +296,114 @@
     .status-ongoing { background: var(--maroon-soft); color: var(--maroon); }
     .status-done    { background: var(--bg-warm);     color: var(--muted); }
 
+    /* ── Post page ── */
+    /* Wraps the Markdown body of a single post. */
+    .post-page {
+      background: var(--bg-warm);
+      padding: 3rem 0 3.5rem;
+    }
+
+    .post-page h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-body {
+      background: var(--card);
+      border: 1px solid var(--rule-soft);
+      border-radius: 5px;
+      padding: 2rem 2.1rem;
+    }
+
+    .post-body > * + * { margin-top: 1.1rem; }
+
+    .post-body h2,
+    .post-body h3 {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .post-body h2 { font-size: 1.28rem; margin-top: 2rem; }
+    .post-body h3 { font-size: 1.1rem;  margin-top: 1.6rem; }
+
+    .post-body p,
+    .post-body li {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.75;
+    }
+
+    .post-body ul,
+    .post-body ol { padding-left: 1.4rem; }
+    .post-body li + li { margin-top: 0.35rem; }
+
+    .post-body strong { color: var(--ink); font-weight: 600; }
+
+    .post-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .post-body code {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.86em;
+      background: var(--bg-warm);
+      color: var(--maroon);
+      padding: 0.12rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    .post-body pre {
+      background: var(--surface);
+      border: 1px solid var(--rule-soft);
+      border-radius: 5px;
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+    }
+
+    .post-body pre code {
+      background: none;
+      color: var(--ink);
+      padding: 0;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .post-body blockquote {
+      border-left: 2px solid var(--rule);
+      padding-left: 1rem;
+      font-style: italic;
+    }
+
+    .post-body img { max-width: 100%; border-radius: 4px; }
+
+    .post-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    .post-body th,
+    .post-body td {
+      border: 1px solid var(--rule-soft);
+      padding: 0.5rem 0.7rem;
+      text-align: left;
+    }
+    .post-body th {
+      background: var(--bg-warm);
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .post-body hr {
+      border: 0;
+      border-top: 1px solid var(--rule-soft);
+      margin-top: 1.8rem;
+    }
+
     /* ── About strip ── */
     .about-strip {
       background: var(--surface);
@@ -311,6 +425,8 @@
       font-size: 0.95rem;
     }
 
+    .about-strip p + p { margin-top: 0.8rem; }
+
     .about-strip a {
       color: var(--accent);
       text-decoration: underline;
@@ -329,6 +445,7 @@
 
     @media (max-width: 480px) {
       nav { gap: 1.2rem; flex-wrap: wrap; }
+      .post-body { padding: 1.5rem 1.3rem; }
     }
   </style>
 </head>
@@ -339,136 +456,24 @@
 
   <header>
     <div class="container">
-      <h1>Sandhya Vasu</h1>
-      <p class="tagline">Writing about code, tools, and the craft of building software.</p>
+      <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+      <p class="tagline">{{ site.tagline }}</p>
       <nav>
-        <a href="#posts">Posts</a>
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="https://github.com/SandhyaVasu" target="_blank" rel="noopener">GitHub</a>
+        <a href="{{ '/#posts' | relative_url }}">Posts</a>
+        <a href="{{ '/#projects' | relative_url }}">Projects</a>
+        <a href="{{ '/#about' | relative_url }}">About</a>
+        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
   </header>
 
   <main>
-
-    <section class="hero">
-      <div class="container">
-        <p class="hero-label">Latest post</p>
-        <h2>Why I Started Writing About the Things I Build</h2>
-        <p>Writing forces clarity. If you can't explain what a piece of code does, you probably don't fully understand it yet. This blog is where I slow down and think out loud.</p>
-        <a class="read-more" href="#">Read post →</a>
-      </div>
-    </section>
-
-    <section class="posts-section" id="posts">
-      <div class="container">
-        <h2 class="section-heading">All Posts</h2>
-        <ul class="post-list">
-
-          <li class="post-item">
-            <div class="post-meta">
-              <span>August 2026</span>
-              <span class="post-tag">Python</span>
-            </div>
-            <h3><a href="#">Automating the Boring Parts: My First CLI Tool</a></h3>
-            <p>A walkthrough of building a small command-line utility to batch-rename files — and what I learned about argument parsing along the way.</p>
-            <a class="read-more" href="#">Read →</a>
-          </li>
-
-          <li class="post-item">
-            <div class="post-meta">
-              <span>July 2026</span>
-              <span class="post-tag">Git</span>
-            </div>
-            <h3><a href="#">The Git Commands I Actually Use Every Day</a></h3>
-            <p>Not a cheat sheet — just an honest account of the commands that show up in my terminal daily and why they stuck.</p>
-            <a class="read-more" href="#">Read →</a>
-          </li>
-
-          <li class="post-item">
-            <div class="post-meta">
-              <span>June 2026</span>
-              <span class="post-tag">Career</span>
-            </div>
-            <h3><a href="#">Things Nobody Told Me Before My First Code Review</a></h3>
-            <p>Code reviews aren't about being right. Here's what shifted once I understood what they're really for.</p>
-            <a class="read-more" href="#">Read →</a>
-          </li>
-
-        </ul>
-      </div>
-    </section>
-
-    <section class="projects-section" id="projects">
-      <div class="container">
-        <h2 class="section-heading tight">Projects</h2>
-        <p class="projects-note">Things I'm building, and a few I've finished.</p>
-
-        <h3 class="project-group">Ongoing</h3>
-        <ul class="project-list">
-
-          <li class="project-item">
-            <div class="project-meta">
-              <span class="status-tag status-ongoing">Ongoing</span>
-              <span class="post-tag">Python</span>
-            </div>
-            <h4><a href="#">Personal Blog Engine</a></h4>
-            <p>A lightweight static-site generator built to power this blog — plain Markdown in, fast static pages out.</p>
-          </li>
-
-          <li class="project-item">
-            <div class="project-meta">
-              <span class="status-tag status-ongoing">Ongoing</span>
-              <span class="post-tag">Shell</span>
-            </div>
-            <h4><a href="#">Dotfiles Manager</a></h4>
-            <p>A small CLI that syncs shell, editor, and Git configs across machines, so setting up a new laptop takes minutes.</p>
-          </li>
-
-        </ul>
-
-        <h3 class="project-group">Completed</h3>
-        <ul class="project-list">
-
-          <li class="project-item">
-            <div class="project-meta">
-              <span class="status-tag status-done">Completed</span>
-              <span class="post-tag">Python</span>
-            </div>
-            <h4><a href="#">Task Tracker CLI</a></h4>
-            <p>A terminal to-do list with tags and due dates, backed by a local SQLite file. No accounts, no syncing — just fast.</p>
-          </li>
-
-          <li class="project-item">
-            <div class="project-meta">
-              <span class="status-tag status-done">Completed</span>
-              <span class="post-tag">Node.js</span>
-            </div>
-            <h4><a href="#">Markdown Note Sync</a></h4>
-            <p>A tool that keeps a folder of Markdown notes in sync across devices over a simple self-hosted endpoint.</p>
-          </li>
-
-        </ul>
-      </div>
-    </section>
-
-    <section class="about-strip" id="about">
-      <div class="container">
-        <h2>About</h2>
-        <p>
-          Hi, I'm Sandhya — a developer who enjoys building things and occasionally writing about the process.
-          This blog is a space to share what I'm learning, what's tripping me up, and what's clicking.
-          Find me on <a href="https://github.com/SandhyaVasu" target="_blank" rel="noopener">GitHub</a>.
-        </p>
-      </div>
-    </section>
-
+    {{ content }}
   </main>
 
   <footer>
     <div class="container">
-      <p>© 2026 Sandhya Vasu &nbsp;·&nbsp; <a href="https://github.com/SandhyaVasu" target="_blank" rel="noopener">github.com/SandhyaVasu</a></p>
+      <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }} &nbsp;&middot;&nbsp; <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">github.com/{{ site.github_username }}</a></p>
     </div>
   </footer>
 

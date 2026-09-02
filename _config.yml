@@ -1,0 +1,25 @@
+title: Sandhya Vasu
+tagline: Writing about code, tools, and the craft of building software.
+description: Writing about code, tools, and the craft of building software.
+url: "https://sandhyavasu.github.io"
+github_username: SandhyaVasu
+
+# Posts and pages are written in Markdown; these layouts wrap them.
+markdown: kramdown
+permalink: /:year/:month/:title/
+
+# Each project is a Markdown file in _projects/. output: false means they
+# are rendered on the homepage rather than getting pages of their own.
+collections:
+  projects:
+    output: false
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - README.md
