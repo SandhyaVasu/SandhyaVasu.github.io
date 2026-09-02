@@ -17,6 +17,11 @@
       --accent:   #7C5C3E;
       --accent2:  #A67C52;
       --rule:     #D4C8B8;
+      /* Beige ramp, lightest to deepest: card sits above the page,
+         bg-warm bands the content, surface anchors the About strip. */
+      --card:      #FCFAF6;
+      --bg-warm:   #F2EBE0;
+      --rule-soft: #E5DCCD;
       --maroon:      #7C3B32;
       --maroon-soft: #EFE1DD;
       /* Lotus turned on its side, to grow inward off the page-edge rule */
@@ -133,6 +138,7 @@
 
     /* ── Posts ── */
     .posts-section {
+      background: var(--bg-warm);
       padding: 3rem 0;
     }
 
@@ -144,13 +150,19 @@
       color: var(--ink);
     }
 
-    .post-list { list-style: none; }
+    .post-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
 
     .post-item {
-      padding: 1.8rem 0;
-      border-bottom: 1px solid var(--rule);
+      background: var(--card);
+      border: 1px solid var(--rule-soft);
+      border-radius: 5px;
+      padding: 1.4rem 1.5rem;
     }
-    .post-item:first-child { border-top: 1px solid var(--rule); }
 
     .post-meta {
       font-size: 0.8rem;
@@ -162,7 +174,7 @@
     }
 
     .post-tag {
-      background: var(--surface);
+      background: var(--bg-warm);
       color: var(--accent);
       padding: 0.1rem 0.5rem;
       border-radius: 3px;
@@ -202,6 +214,7 @@
 
     /* ── Projects ── */
     .projects-section {
+      background: var(--bg-warm);
       padding: 0 0 3rem;
     }
 
@@ -226,13 +239,19 @@
       margin-bottom: 1rem;
     }
 
-    .project-list { list-style: none; }
+    .project-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
 
     .project-item {
-      padding: 1.5rem 0;
-      border-bottom: 1px solid var(--rule);
+      background: var(--card);
+      border: 1px solid var(--rule-soft);
+      border-radius: 5px;
+      padding: 1.4rem 1.5rem;
     }
-    .project-item:first-child { border-top: 1px solid var(--rule); }
 
     .project-meta {
       display: flex;
@@ -269,7 +288,7 @@
       border-radius: 3px;
     }
     .status-ongoing { background: var(--maroon-soft); color: var(--maroon); }
-    .status-done    { background: var(--surface);     color: var(--muted); }
+    .status-done    { background: var(--bg-warm);     color: var(--muted); }
 
     /* ── About strip ── */
     .about-strip {
