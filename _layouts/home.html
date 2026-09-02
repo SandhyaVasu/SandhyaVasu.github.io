@@ -1,0 +1,84 @@
+---
+layout: default
+---
+
+{% assign latest = site.posts.first %}
+{% if latest %}
+<section class="hero">
+  <div class="container">
+    <p class="hero-label">Latest post</p>
+    <h2><a href="{{ latest.url | relative_url }}">{{ latest.title }}</a></h2>
+    <p>{{ latest.summary | default: latest.excerpt | strip_html | strip_newlines | truncate: 220 }}</p>
+    <a class="read-more" href="{{ latest.url | relative_url }}">Read post &rarr;</a>
+  </div>
+</section>
+{% endif %}
+
+<section class="posts-section" id="posts">
+  <div class="container">
+    <h2 class="section-heading">All Posts</h2>
+    <ul class="post-list">
+      {% for post in site.posts %}
+      <li class="post-item">
+        <div class="post-meta">
+          <span>{{ post.date | date: "%B %Y" }}</span>
+          {% for tag in post.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
+        </div>
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <p>{{ post.summary | default: post.excerpt | strip_html | strip_newlines | truncate: 200 }}</p>
+        <a class="read-more" href="{{ post.url | relative_url }}">Read &rarr;</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="projects-section" id="projects">
+  <div class="container">
+    <h2 class="section-heading tight">Projects</h2>
+    <p class="projects-note">{{ page.projects_note }}</p>
+
+    {% assign sorted = site.projects | sort: "order" %}
+    {% assign ongoing = sorted | where: "status", "ongoing" %}
+    {% assign finished = sorted | where: "status", "completed" %}
+
+    {% if ongoing.size > 0 %}
+    <h3 class="project-group">Ongoing</h3>
+    <ul class="project-list">
+      {% for project in ongoing %}
+      <li class="project-item">
+        <div class="project-meta">
+          <span class="status-tag status-ongoing">Ongoing</span>
+          {% for tag in project.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
+        </div>
+        <h4>{% if project.link %}<a href="{{ project.link }}" target="_blank" rel="noopener">{{ project.title }}</a>{% else %}{{ project.title }}{% endif %}</h4>
+        {{ project.content | markdownify }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if finished.size > 0 %}
+    <h3 class="project-group">Completed</h3>
+    <ul class="project-list">
+      {% for project in finished %}
+      <li class="project-item">
+        <div class="project-meta">
+          <span class="status-tag status-done">Completed</span>
+          {% for tag in project.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
+        </div>
+        <h4>{% if project.link %}<a href="{{ project.link }}" target="_blank" rel="noopener">{{ project.title }}</a>{% else %}{{ project.title }}{% endif %}</h4>
+        {{ project.content | markdownify }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</section>
+
+<section class="about-strip" id="about">
+  <div class="container">
+    <h2>About</h2>
+    {{ content }}
+  </div>
+</section>

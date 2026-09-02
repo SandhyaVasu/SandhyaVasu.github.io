@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<article class="post-page">
+  <div class="container">
+    <div class="post-meta">
+      <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+      {% for tag in page.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
+    </div>
+    <h1>{{ page.title }}</h1>
+    <div class="post-body">
+      {{ content }}
+    </div>
+    <a class="read-more" href="{{ '/#posts' | relative_url }}">&larr; All posts</a>
+  </div>
+</article>
