@@ -21,7 +21,7 @@
       /* Beige ramp, lightest to deepest: card sits above the page,
          bg-warm bands the content, surface anchors the About strip. */
       --card:      #FCFAF6;
-      --bg-warm:   #F2EBE0;
+      --bg-warm:   #F1E9DC;
       --rule-soft: #E5DCCD;
       --maroon:      #7C3B32;
       --maroon-soft: #EFE1DD;
@@ -173,6 +173,7 @@
       border: 1px solid var(--rule-soft);
       border-radius: 5px;
       padding: 1.4rem 1.5rem;
+      box-shadow: 0 1px 2px rgba(43, 35, 24, 0.04);
     }
 
     .post-meta {
@@ -226,8 +227,9 @@
 
     /* ── Projects ── */
     .projects-section {
-      background: var(--bg-warm);
-      padding: 0 0 3rem;
+      background: var(--bg);
+      border-top: 1px solid var(--rule);
+      padding: 3rem 0;
     }
 
     .section-heading.tight { margin-bottom: 0.8rem; }
@@ -262,6 +264,7 @@
       border: 1px solid var(--rule-soft);
       border-radius: 5px;
       padding: 1.4rem 1.5rem;
+      box-shadow: 0 1px 2px rgba(43, 35, 24, 0.04);
     }
 
     .project-meta {
