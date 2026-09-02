@@ -3,20 +3,29 @@ layout: default
 ---
 
 {% assign latest = site.posts.first %}
-{% if latest %}
 <section class="hero">
   <div class="container">
-    <p class="hero-label">Latest post</p>
-    <h2><a href="{{ latest.url | relative_url }}">{{ latest.title }}</a></h2>
-    <p>{{ latest.summary | default: latest.excerpt | strip_html | strip_newlines | truncate: 220 }}</p>
-    <a class="read-more" href="{{ latest.url | relative_url }}">Read post &rarr;</a>
+    {% if latest %}
+      <p class="hero-label">Latest post</p>
+      <h2><a href="{{ latest.url | relative_url }}">{{ latest.title }}</a></h2>
+      <p>{{ latest.summary | default: latest.excerpt | strip_html | strip_newlines | truncate: 220 }}</p>
+      <a class="read-more" href="{{ latest.url | relative_url }}">Read post &rarr;</a>
+    {% else %}
+      {% comment %} No posts yet: lead with the intro from index.md instead. {% endcomment %}
+      <p class="hero-label">{{ page.intro_label }}</p>
+      <h2>{{ page.intro_title }}</h2>
+      <p>{{ page.intro_text }}</p>
+      <a class="read-more" href="#projects">See the projects &rarr;</a>
+    {% endif %}
   </div>
 </section>
-{% endif %}
 
 <section class="posts-section" id="posts">
   <div class="container">
-    <h2 class="section-heading">All Posts</h2>
+    <h2 class="section-heading">{% if site.posts.size > 0 %}All Posts{% else %}Writing{% endif %}</h2>
+    {% if site.posts.size == 0 %}
+    <p class="posts-empty">No posts yet — the first ones are in progress.</p>
+    {% endif %}
     <ul class="post-list">
       {% for post in site.posts %}
       <li class="post-item">
