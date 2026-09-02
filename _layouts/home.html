@@ -51,8 +51,12 @@ layout: default
     {% assign ongoing = sorted | where: "status", "ongoing" %}
     {% assign finished = sorted | where: "status", "completed" %}
 
+    {% comment %} Only label the groups when there is more than one to tell apart. {% endcomment %}
+    {% assign show_groups = false %}
+    {% if ongoing.size > 0 and finished.size > 0 %}{% assign show_groups = true %}{% endif %}
+
     {% if ongoing.size > 0 %}
-    <h3 class="project-group">Ongoing</h3>
+    {% if show_groups %}<h3 class="project-group">Ongoing</h3>{% endif %}
     <ul class="project-list">
       {% for project in ongoing %}
       <li class="project-item">
@@ -68,7 +72,7 @@ layout: default
     {% endif %}
 
     {% if finished.size > 0 %}
-    <h3 class="project-group">Completed</h3>
+    {% if show_groups %}<h3 class="project-group">Completed</h3>{% endif %}
     <ul class="project-list">
       {% for project in finished %}
       <li class="project-item">

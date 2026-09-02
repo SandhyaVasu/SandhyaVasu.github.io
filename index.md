@@ -8,8 +8,9 @@ intro_text: >-
   communities can do together that none of their members manage alone.
 ---
 
-I'm Sandhya — I work in computational systems biology, mostly on genome-scale
-metabolic models of gut microbial communities.
+I'm Sandhya — a PhD student in Biotechnology at IIT Madras, working in
+computational systems biology on genome-scale metabolic models of gut microbial
+communities.
 
 A lot of what I do comes down to knocking pieces out of a model and seeing what
 survives: which reactions are lethal alone, which the community rescues through

@@ -1,6 +1,6 @@
 ---
 title: Reaction Lethality and Metabolic Rescue in Communities
-status: ongoing
+status: completed
 order: 1
 tags: [Python, COBRApy, MiCoM]
 link: https://github.com/SandhyaVasu/BT7999
