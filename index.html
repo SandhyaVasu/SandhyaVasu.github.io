@@ -17,6 +17,10 @@
       --accent:   #7C5C3E;
       --accent2:  #A67C52;
       --rule:     #D4C8B8;
+      --maroon:      #7C3B32;
+      --maroon-soft: #EFE1DD;
+      /* Lotus turned on its side, to grow inward off the page-edge rule */
+      --lotus-edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='72' viewBox='0 0 24 72'%3E%3Cg transform='translate(0,36) rotate(90)' fill='none' stroke='%237C3B32' stroke-width='1' stroke-linejoin='round'%3E%3Cpath d='M0,0 C-2.4,-3 -2.4,-7.5 0,-10.5 C2.4,-7.5 2.4,-3 0,0 Z' transform='rotate(-60)'/%3E%3Cpath d='M0,0 C-2.7,-3.5 -2.7,-9 0,-13 C2.7,-9 2.7,-3.5 0,0 Z' transform='rotate(-30)'/%3E%3Cpath d='M0,0 C-3,-4 -3,-11 0,-16 C3,-11 3,-4 0,0 Z'/%3E%3Cpath d='M0,0 C-2.7,-3.5 -2.7,-9 0,-13 C2.7,-9 2.7,-3.5 0,0 Z' transform='rotate(30)'/%3E%3Cpath d='M0,0 C-2.4,-3 -2.4,-7.5 0,-10.5 C2.4,-7.5 2.4,-3 0,0 Z' transform='rotate(60)'/%3E%3C/g%3E%3Ccircle cx='1' cy='36' r='1.4' fill='%237C3B32'/%3E%3Ccircle cx='1' cy='7' r='1' fill='%237C3B32'/%3E%3Ccircle cx='1' cy='65' r='1' fill='%237C3B32'/%3E%3C/svg%3E");
     }
 
     html { scroll-behavior: smooth; }
@@ -72,6 +76,30 @@
       max-width: 720px;
       margin: 0 auto;
       padding: 0 1.5rem;
+    }
+
+    /* ── Lotus page edges ── */
+    /* A hairline down each side of the page with small lotuses growing
+       inward off it. Hidden when the viewport is too narrow to spare the
+       margin, so it never crowds the text column. */
+    .page-edge {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 24px;
+      border-left: 1px solid var(--rule);
+      background-image: var(--lotus-edge);
+      background-repeat: repeat-y;
+      background-position: left top;
+      pointer-events: none;
+      display: none;
+    }
+
+    .page-edge.left  { left: 1.5rem; }
+    .page-edge.right { right: 1.5rem; transform: scaleX(-1); }
+
+    @media (min-width: 900px) {
+      .page-edge { display: block; }
     }
 
     /* ── Hero ── */
@@ -172,6 +200,77 @@
     }
     .read-more:hover { text-decoration: underline; }
 
+    /* ── Projects ── */
+    .projects-section {
+      padding: 0 0 3rem;
+    }
+
+
+    .section-heading.tight { margin-bottom: 0.8rem; }
+
+    .projects-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 55ch;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-group {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-list { list-style: none; }
+
+    .project-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .project-item:first-child { border-top: 1px solid var(--rule); }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-item h4 {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-item h4 a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .project-item h4 a:hover { color: var(--accent); }
+
+    .project-item p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 60ch;
+    }
+
+    .status-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.1rem 0.5rem;
+      border-radius: 3px;
+    }
+    .status-ongoing { background: var(--maroon-soft); color: var(--maroon); }
+    .status-done    { background: var(--surface);     color: var(--muted); }
+
     /* ── About strip ── */
     .about-strip {
       background: var(--surface);
@@ -216,12 +315,16 @@
 </head>
 <body>
 
+  <div class="page-edge left" aria-hidden="true"></div>
+  <div class="page-edge right" aria-hidden="true"></div>
+
   <header>
     <div class="container">
       <h1>Sandhya Vasu</h1>
       <p class="tagline">Writing about code, tools, and the craft of building software.</p>
       <nav>
         <a href="#posts">Posts</a>
+        <a href="#projects">Projects</a>
         <a href="#about">About</a>
         <a href="https://github.com/SandhyaVasu" target="_blank" rel="noopener">GitHub</a>
       </nav>
@@ -272,6 +375,59 @@
             <h3><a href="#">Things Nobody Told Me Before My First Code Review</a></h3>
             <p>Code reviews aren't about being right. Here's what shifted once I understood what they're really for.</p>
             <a class="read-more" href="#">Read →</a>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <section class="projects-section" id="projects">
+      <div class="container">
+        <h2 class="section-heading tight">Projects</h2>
+        <p class="projects-note">Things I'm building, and a few I've finished.</p>
+
+        <h3 class="project-group">Ongoing</h3>
+        <ul class="project-list">
+
+          <li class="project-item">
+            <div class="project-meta">
+              <span class="status-tag status-ongoing">Ongoing</span>
+              <span class="post-tag">Python</span>
+            </div>
+            <h4><a href="#">Personal Blog Engine</a></h4>
+            <p>A lightweight static-site generator built to power this blog — plain Markdown in, fast static pages out.</p>
+          </li>
+
+          <li class="project-item">
+            <div class="project-meta">
+              <span class="status-tag status-ongoing">Ongoing</span>
+              <span class="post-tag">Shell</span>
+            </div>
+            <h4><a href="#">Dotfiles Manager</a></h4>
+            <p>A small CLI that syncs shell, editor, and Git configs across machines, so setting up a new laptop takes minutes.</p>
+          </li>
+
+        </ul>
+
+        <h3 class="project-group">Completed</h3>
+        <ul class="project-list">
+
+          <li class="project-item">
+            <div class="project-meta">
+              <span class="status-tag status-done">Completed</span>
+              <span class="post-tag">Python</span>
+            </div>
+            <h4><a href="#">Task Tracker CLI</a></h4>
+            <p>A terminal to-do list with tags and due dates, backed by a local SQLite file. No accounts, no syncing — just fast.</p>
+          </li>
+
+          <li class="project-item">
+            <div class="project-meta">
+              <span class="status-tag status-done">Completed</span>
+              <span class="post-tag">Node.js</span>
+            </div>
+            <h4><a href="#">Markdown Note Sync</a></h4>
+            <p>A tool that keeps a folder of Markdown notes in sync across devices over a simple self-hosted endpoint.</p>
           </li>
 
         </ul>
