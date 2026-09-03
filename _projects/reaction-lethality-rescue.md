@@ -8,9 +8,6 @@ image:
 link: https://github.com/SandhyaVasu/BT7999
 ---
 
-Which reactions are lethal to a microbe on its own, and which of those the
-community rescues through cross-feeding. Single and double reaction knockouts
-are screened against a FAST-SL style lethality threshold, then re-tested inside
-genome-scale community models to see what partners restore. Includes a scan of
-MiCoM's cooperative trade-off parameter to see how the answer shifts as
-communities are pushed from individually optimal to cooperative growth.
+Which reaction deletions are lethal to a microbe on its own, and which can the community rescue through cross-feeding?
+
+Single reactions and synthetic lethal pairs of reactions are knocked out in individual organisms to identify which deletions are lethal. These lethal deletions are then re-tested in the presence of other organisms to determine whether community partners can restore growth through cross-feeding.
