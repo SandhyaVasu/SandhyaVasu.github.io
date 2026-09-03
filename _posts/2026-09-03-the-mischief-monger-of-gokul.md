@@ -46,7 +46,7 @@ come to know of it.
 
 
 {: .fig-left}
-![Caught in the butter pot](/assets/posts/butter.webp)
+![Caught in the butter pot](/assets/posts/butter_thieves.png)
 In the evening, when Kanha and his friends were frolicking on the streets,
 hunger pangs overcame them. Just then Kanha sighted the same house and
 whispered to his friends, "Friends, the lady of that house has secretly stored
