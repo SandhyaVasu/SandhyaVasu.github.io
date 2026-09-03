@@ -21,9 +21,11 @@
 {%- for f in site.static_files -%}
   {%- if f.path contains dir and exts contains f.extname -%}
     {%- if include.doc.image -%}
-      {%- if f.name == include.doc.image -%}{%- assign found = f.path -%}{%- endif -%}
+      {%- if f.name == include.doc.image -%}{%- assign found = f.path -%}{%- break -%}{%- endif -%}
     {%- elsif f.basename == slug -%}
-      {%- assign found = f.path -%}
+      {%- comment -%}First match wins, so two files sharing a basename
+      (gensemble.png alongside gensemble.webp) resolve predictably.{%- endcomment -%}
+      {%- assign found = f.path -%}{%- break -%}
     {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
