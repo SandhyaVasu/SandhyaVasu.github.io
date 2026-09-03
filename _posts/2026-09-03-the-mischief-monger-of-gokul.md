@@ -136,6 +136,9 @@ Kanha ran away to a safe distance and laughed aloud to his heart's content!!
 
 <p><strong>Story from Swami Ramanacharanatirtha's Nellisery Bhagavatam</strong></p>
 
-<p><a href="[https://youtube.com/playlist?list=PL4MKKRS02tn0I-XwXcxhG8k7mjtrSu-7s&si=mSQVegSg6TjNmosn](https://youtu.be/t3k9bH670-k?si=kBsJM2es9u14PdNq&t=33408)">Watch the original narration on YouTube</a></p>
-
+<p>
+  <a href="https://youtu.be/t3k9bH670-k?si=pjWRVlo3YV1ZnL9H&t=33409">
+    Watch the original narration on YouTube
+  </a>
+</p>
 </div>
