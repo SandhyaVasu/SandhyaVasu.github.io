@@ -57,10 +57,6 @@ and Latha showed up in the kitchen with a
 frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
-
-<div style="display: flex; align-items: center; gap: 40px;">
-
-  <div style="flex: 3; text-align: center;">
   
 <div style="display: flex; align-items: center; gap: 40px;">
 
@@ -92,13 +88,6 @@ stuck atop, clinging to a hanging pot of butter.
 
 </div>
 
-  </div>
-
-  <div style="flex: 2;">
-    <img src="/assets/posts/fun.png" alt="Caught in the butter pot" style="width: 100%;">
-  </div>
-
-</div>
 
 Saying so, Kanha swiftly leapt down and escaped through the window. As soon as he was gone,
 Latha's mother-in-law entered the kitchen and was shaken to see its plight!
