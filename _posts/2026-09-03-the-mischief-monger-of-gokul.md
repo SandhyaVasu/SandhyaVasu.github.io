@@ -30,6 +30,7 @@ the time when his mischief was at its peak.
 
 <img src="/assets/posts/calf.png" alt="Letting calf loose" class="fig-right">
 
+<p>
 One day, as he passed by a household, he saw a calf which was tied to a post,
 trying frantically to free itself. Kanha peeped inside the house to see if
 anyone was watching him. Through the window, he saw a young milkmaid, Latha,
@@ -41,6 +42,7 @@ letting her calf loose or calling her a *'granny'*, bringing her image down from
 the pinnacle of beauty she considered herself to be! Insulted, she gave an
 angry stare at the child and ran in search of the calf lest her mother-in-law
 come to know of it.
+<p>
 
 
 <img src="/assets/posts/butter.png" alt="butter" class="fig-left">
@@ -56,22 +58,17 @@ Very soon, the front door opened, and Latha showed up in the kitchen with a
 frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
-<p align="center">
+<p align="center">"Can you please explain yourself?"</p>
 
-"Can you please explain yourself?"
+<p align="center">"Mother! Please listen to me, one of my cows got lost."</p>
 
-"Mother! Please listen to me, one of my cows got lost."
+<p align="center">"Go on"</p>
 
-"Go on"
+<p align="center">"So I thought it came inside your beautiful house."</p>
 
-"So I thought it came inside your beautiful house."
+<p align="center">"Okay, but what are you doing up there?"</p>
 
-"Okay, but what are you doing up there?"
-
-"Mine was a white cow. As soon as I entered, I saw white things up here. So,
-I'm just checking if it is here. But no, the cow isn't here!"
-
-</p>
+<p align="center">"Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
 
 Saying so, Kanha swiftly leapt down and escaped through the window. Suddenly,
 Latha's mother-in-law entered the kitchen and was shaken to see its plight!
