@@ -64,21 +64,21 @@ stuck atop, clinging to a hanging pot of butter.
   
     <p>Kanha: "Welcome home, mother!"</p>
     
-    <p>Gopika: "Can you please explain yourself? What is your name?"</p>
+    <p>Latha: "Can you please explain yourself? What is your name?"</p>
     
-    <p>Kanha (mischievously): "I am Balaram's younger brother"</p>
+    <p>Kanha (mischievously): "I am Balaram's younger brother."</p>
 
-    <p>Gopika: "What are you doing here?"</p>
+    <p>Latha: "What are you doing here?"</p>
 
     <p> Kanha (full of innocence): "Mother! I thought this was my home, and so stepped in"</p>
     
-    <p> Gopika: "Okay, but what are you doing up there?"</p>
+    <p> Latha: "Alright, but what are you doing up there?"</p>
 
-    <p> Kanha: You know my mother, Yashoda, sends me to graze the cattle. If any cow is missing, she will beat me up"</p>
+    <p> Kanha: "You know my mother, Yashoda, sends me to graze the cattle. If any cow is missing, she will beat me up"</p>
 
-    He went on and on about when they left, who all joined him and began narrating an elaborate story of how of his cows went missing. Latha was enchanted by the boy and wondered how one so little could speak so much.
+    <p> He went on and on about when they left, who all joined him and began narrating an elaborate story that ended with the fact that one of his cows went missing. Latha was so enchanted by the boy and wondered how one so little could speak so much. She forgot all about the butter, to the point that she was now getting anxious about the missing cow! <p>
 
-    <p>"Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
+    <p> Kanha: "Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
 
   </div>
 
