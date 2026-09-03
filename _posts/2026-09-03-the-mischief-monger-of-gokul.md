@@ -2,7 +2,7 @@
 title: The Mischief Monger of Gokul
 date: 2026-09-03
 category: beyond-the-lab
-tags: [Krishna, Storytelling]
+tags: [Krishna, Story]
 summary: A tale from Gokul, where a butter-loving toddler outwits the same
   milkmaid twice over — and leaves her taking the blame.
 ---
@@ -115,6 +115,6 @@ Kanha ran away to a safe distance and laughed aloud to his heart's content!!
 
 <p><strong>Story from Swami Ramanacharanatirtha's Nellisery Bhagavatam</strong></p>
 
-<p><a href="[https://youtu.be/pOhmPRT8jEE?si=qXd4f0UOQFy6daUe](https://youtube.com/playlist?list=PL4MKKRS02tn0I-XwXcxhG8k7mjtrSu-7s&si=DoIjTRVO_oPdjtF_)">Watch the original narration on YouTube</a></p>
+<p><a href="https://youtube.com/playlist?list=PL4MKKRS02tn0I-XwXcxhG8k7mjtrSu-7s&si=mSQVegSg6TjNmosn">Watch the original narration on YouTube</a></p>
 
 </div>
