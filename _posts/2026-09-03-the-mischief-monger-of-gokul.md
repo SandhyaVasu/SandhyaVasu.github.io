@@ -76,7 +76,7 @@ stuck atop, clinging to a hanging pot of butter.
     
     <p><strong>Kanha</strong>: "You know my mother, Yashoda, sends me to graze the cattle..."</p>
     
-    <p>He then went on and on about when they left, who all joined him and began narrating an elaborate story that ended with the fact that one of his cows went missing and if he returned home, Yashoda would beat him. Latha was so enchanted by the boy and wondered how one so little could speak so much. She forgot all about the butter, to the extent that she was now getting anxious about the missing cow!</p>
+    <p>He then went on and on about when they left, who all joined him and began narrating an elaborate story that ended with the fact that one of his cows went missing and if he returned home without it, Yashoda would beat him. Latha was so enchanted by the boy and wondered how one so little could speak so much. She forgot all about the butter, to the extent that she was now getting anxious about the missing cow!</p>
     
     <p><strong>Kanha</strong>: "Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
 
