@@ -31,6 +31,7 @@ the time when his mischief was at its peak.
 <img src="/assets/posts/calf.png" alt="Letting calf loose" class="fig-right">
 
 <p>
+  
 One day, as he passed by a household, he saw a calf which was tied to a post,
 trying frantically to free itself. Kanha peeped inside the house to see if
 anyone was watching him. Through the window, he saw a young milkmaid, Latha,
@@ -57,6 +58,7 @@ straight to the kitchen and helped themselves to sumptuous servings of butter.
 Very soon, the front door opened, and Latha showed up in the kitchen with a
 frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
+
 
 <p align="center">"Can you please explain yourself?"</p>
 
