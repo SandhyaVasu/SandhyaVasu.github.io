@@ -20,7 +20,7 @@ summary: A tale from Gokul, where a butter-loving toddler outwits the same
 {: .fig-left}
 ![Kanha in Gokul](/assets/posts/kanha.webp)
 This tale dates back long, long ago—oh, those wondrous times when the sacred
-lotus feet of Yashoda's darling used to tread that blessed soil. We are in the
+lotus feet of Yashoda's darling used to tread the blessed soil of Bharat. We are in the
 outskirts of Mathura, in the peaceful village of Gokul, carpeted by lush
 greenery all around, with the enchanting Yamuna waters gushing to embrace the
 landmass and the placid skies roofing several humble households of milkmaidens,
