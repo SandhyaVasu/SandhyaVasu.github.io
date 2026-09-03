@@ -7,16 +7,18 @@ summary: A tale from Gokul, where a butter-loving toddler outwits the same
   milkmaid twice over — and leaves her taking the blame.
 ---
 
-<!-- To place a picture beside the text, put the file in assets/posts/ and
-     add the image with a class under it, like this:
+<!-- To put a picture beside a passage, upload it to assets/posts/ and write
+     the picture and the passage as ONE paragraph, with the side class above:
 
-       ![Kanha frees the calf](/assets/posts/kanha-calf.png)
        {: .fig-left}
+       ![Kanha frees the calf](/assets/posts/kanha-calf.webp)
+       One day, as he passed by a household, ...
 
-     Alternate .fig-left and .fig-right down the post to zig-zag. -->
+     No blank line between the picture and the text — they have to be the
+     same paragraph. Alternate .fig-left and .fig-right to zig-zag. -->
 
-<img src="/assets/posts/kanha.png" alt="Kanha in Gokul" class="fig-left">
-
+{: .fig-left}
+![Kanha in Gokul](/assets/posts/kanha.webp)
 This tale dates back long, long ago—oh, those wondrous times when the sacred
 lotus feet of Yashoda's darling used to tread that soil. We are in the
 outskirts of Mathura, in the peaceful village of Gokul, carpeted by lush
@@ -28,9 +30,8 @@ was he the very epitome of naughtiness. Kanha loved playing pranks, and this was
 the time when his mischief was at its peak.
 
 
-<img src="/assets/posts/calf.png" alt="Letting calf loose" class="fig-right">
-
-
+{: .fig-right}
+![Letting the calf loose](/assets/posts/calf.webp)
 One day, as he passed by a household, he saw a calf which was tied to a post,
 trying frantically to free itself. Kanha peeped inside the house to see if
 anyone was watching him. Through the window, he saw a young milkmaid, Latha,
@@ -44,8 +45,8 @@ angry stare at the child and ran in search of the calf lest her mother-in-law
 come to know of it.
 
 
-<img src="/assets/posts/butter.png" alt="butter" class="fig-left">
-
+{: .fig-left}
+![Caught in the butter pot](/assets/posts/butter.webp)
 In the evening, when Kanha and his friends were frolicking on the streets,
 hunger pangs overcame them. Just then Kanha sighted the same house and
 whispered to his friends, "Friends, the lady of that house has secretly stored

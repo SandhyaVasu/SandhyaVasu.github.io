@@ -49,23 +49,32 @@ with no `category` falls into a third group, "Other".
 
 ### Pictures inside a post
 
-Put the file in `assets/posts/`, then add the side class on the line directly
-below the image:
+Put the file in `assets/posts/`, then write the picture and the passage it
+should sit beside as **one paragraph**, with the side class on the line above:
 
 ```markdown
-![Kanha frees the calf](/assets/posts/kanha-calf.png)
 {: .fig-left}
+![Kanha frees the calf](/assets/posts/kanha-calf.webp)
+One day, as he passed by a household, he saw a calf which was tied to a
+post, trying frantically to free itself...
 ```
 
-`.fig-left` floats the picture to the left with the text wrapping down its
-right side; `.fig-right` does the mirror image. Alternate the two down the
-post and the pictures zig-zag. Each takes 45% of the column width, and below
-600px wide they stack full-width on their own.
+`.fig-left` puts the picture on the left with the text wrapping down its right
+side; `.fig-right` is the mirror. Alternate the two down the post and the
+pictures zig-zag. Each takes 45% of the column, and below 600px wide they
+stack full-width on their own.
 
-The `{: .fig-left}` line is kramdown syntax for "attach this class to the
-block above" — it has to sit on the very next line, with a blank line before
-the following paragraph. Filenames must not begin with an underscore; Jekyll
-ignores those, so the image would 404 on the live site.
+The `{: .fig-left}` line is kramdown syntax for "attach this class to the next
+block". **There must be no blank line between the picture and the text** — a
+blank line splits them into two paragraphs, and then the passage can open with
+a single stray word wedged between the two pictures.
+
+Two things to watch:
+
+- Filenames must not begin with an underscore; Jekyll ignores those, so the
+  image would 404 on the live site.
+- Save as `.webp`, about 1000px wide. Each picture renders around 440px, so a
+  3MB PNG downloads roughly ten times more than it shows.
 
 ## Adding a project
 
