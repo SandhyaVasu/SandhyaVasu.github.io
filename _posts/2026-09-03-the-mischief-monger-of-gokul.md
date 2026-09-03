@@ -24,10 +24,10 @@ lotus feet of Yashoda's darling used to tread the blessed soil of Bharat. We are
 outskirts of Mathura, in the peaceful village of Gokul, carpeted by lush
 greenery all around, with the enchanting Yamuna waters gushing to embrace the
 landmass and the placid skies roofing several humble households of milkmaidens,
-cowherds and the chieftain's bundle of energy – little Kanha. This toddler was
+cowherds and the chieftain's bundle of energy–little Kanha. This toddler was
 the darling boy of Gokul and hence was lovingly spoiled by everyone. No wonder
 was he the very epitome of naughtiness. Kanha loved playing pranks, and this was 
-the time when his mischief was at its peak.
+the age when his mischief was at its peak.
 
 
 {: .fig-right}
@@ -38,7 +38,7 @@ anyone was watching him. Through the window, he saw a young milkmaid, Latha,
 admiring herself in the mirror, totally lost in her beauty. Kanha chuckled and
 tiptoed near the wailing calf and, in an instant, set it free. Once it started
 running, he went near the window and yelled, "Granny, your calf untied itself
-and has fled!" The poor girl didn't know what to get angry about — for Kanha
+and is running away!" The poor girl didn't know what to get angry about—for Kanha
 letting her calf loose or calling her a *'granny'*, bringing her image down from
 the pinnacle of beauty she considered herself to be! Insulted, she gave an
 angry stare at the child and ran in search of the calf lest her mother-in-law
@@ -61,16 +61,22 @@ stuck atop, clinging to a hanging pot of butter.
 <div style="display: flex; align-items: center; gap: 40px;">
 
   <div style="flex: 3; text-align: center;">
+  
+    <p>Kanha: "Welcome home, mother!"</p>
+    
+    <p>Gopika: "Can you please explain yourself? What is your name?"</p>
+    
+    <p>Kanha (mischievously): "I am Balaram's younger brother"</p>
 
-    <p>"Can you please explain yourself?"</p>
+    <p>Gopika: "What are you doing here?"</p>
 
-    <p>"Mother! Please listen to me, one of my cows got lost."</p>
+    <p> Kanha (full of innocence): "Mother! I thought this was my home, and so stepped in"</p>
+    
+    <p> Gopika: "Okay, but what are you doing up there?"</p>
 
-    <p>"Go on"</p>
+    <p> Kanha: You know my mother, Yashoda, sends me to graze the cattle. If any cow is missing, she will beat me up"</p>
 
-    <p>"So I thought it came inside your beautiful house."</p>
-
-    <p>"Okay, but what are you doing up there?"</p>
+    He went on and on about when they left, who all joined him and began narrating an elaborate story of how of his cows went missing. Latha was enchanted by the boy and wondered how one so little could speak so much.
 
     <p>"Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
 
@@ -82,11 +88,11 @@ stuck atop, clinging to a hanging pot of butter.
 
 </div>
 
-Saying so, Kanha swiftly leapt down and escaped through the window. Suddenly,
+Saying so, Kanha swiftly leapt down and escaped through the window. As soon as he was gone,
 Latha's mother-in-law entered the kitchen and was shaken to see its plight!
 
 "My dear girl, did you have a nice treat? Do you want more butter?" she asked
-sarcastically. Poor Latha tried her best to prove her innocence but the elder
+sarcastically. Poor Latha tried her best to prove her innocence, but the elder
 lady simply hushed her justifications, "Show me when that innocent child comes
 here to steal."
 
@@ -103,7 +109,7 @@ was tied to the tongue of the bell!
 <br>
 As she peeped inside, she saw the beautiful scene of Kanha almost drenched in
 butter, totally relishing and having the time of his life! She lost herself for
-a moment in that scene which is sought after by yogis who perform staunch
+a moment in that scene, which is sought after by yogis who perform staunch
 *tapasya*! But the *lila* had to continue, so *maya* took over, and her
 attention went to the main door, from where her mother-in-law was entering the
 house.
