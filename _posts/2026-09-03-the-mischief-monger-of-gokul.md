@@ -89,7 +89,7 @@ stuck atop, clinging to a hanging pot of butter.
 </div>
 
 
-Saying so, Kanha swiftly leapt down and escaped through the window. As soon as he was gone,
+So saying, Kanha swiftly leapt down and escaped through the window. As soon as he was gone,
 Latha's mother-in-law entered the kitchen and was shaken to see its plight!
 
 "My dear girl, did you have a nice treat? Do you want more butter?" she asked
