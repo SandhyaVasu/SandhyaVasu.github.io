@@ -167,8 +167,11 @@
 
     .section-heading {
       font-family: 'Lora', serif;
-      font-size: 1.3rem;
+      /* Matches the hero heading's scale. */
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
       font-weight: 600;
+      line-height: 1.3;
+      text-wrap: balance;
       margin-bottom: 2rem;
       color: var(--ink);
     }
@@ -243,6 +246,13 @@
     .read-more:hover { text-decoration: underline; }
 
     /* ── Projects ── */
+    .projects-section .section-heading,
+    .projects-section .projects-note {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .projects-section {
       background: var(--bg);
       border-top: 1px solid var(--rule);
