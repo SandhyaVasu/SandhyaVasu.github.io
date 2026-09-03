@@ -628,68 +628,128 @@
   // Projects carousel. The track is already a working scroll-snap strip on its
   // own, so everything here is an enhancement: the arrows and dots stay hidden
   // until we know the script ran.
+  //
+  // Looping is done with clones. A copy of the first slide sits after the last
+  // one and a copy of the last sits before the first, so advancing past either
+  // end scrolls onward into a clone -- which looks identical to the slide being
+  // wrapped to -- and we then reposition to the real one with no animation.
+  // That keeps the motion always going the way the reader asked for, instead of
+  // rewinding across every slide.
   (function () {
     var root = document.querySelector('[data-carousel]');
     if (!root) return;
 
     var track  = root.querySelector('.carousel-track');
-    var slides = root.querySelectorAll('.carousel-slide');
     var prev   = root.querySelector('[data-carousel-prev]');
     var next   = root.querySelector('[data-carousel-next]');
     var dotBar = root.querySelector('[data-carousel-dots]');
     var dots   = root.querySelectorAll('[data-carousel-goto]');
-    if (!track || slides.length < 2) return;
+    if (!track) return;
+
+    var real = Array.prototype.slice.call(track.querySelectorAll('.carousel-slide'));
+    var count = real.length;
+    if (count < 2) return;
 
     var reduced = window.matchMedia
       && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // ── Clones at both ends ────────────────────────────────────────────
+    function makeClone(node) {
+      var c = node.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.removeAttribute('aria-label');
+      // Keep duplicated links out of the tab order.
+      Array.prototype.forEach.call(c.querySelectorAll('a, button'), function (el) {
+        el.setAttribute('tabindex', '-1');
+      });
+      return c;
+    }
+    track.appendChild(makeClone(real[0]));
+    track.insertBefore(makeClone(real[count - 1]), real[0]);
+
+    // Positions: 0 = clone of last, 1..count = the real slides, count+1 = clone of first.
+    var all = track.querySelectorAll('.carousel-slide');
+    var FIRST = 1, LAST = count, HEAD_CLONE = count + 1, TAIL_CLONE = 0;
+
+    var current = 0;      // index into the real slides
+    var jumping = false;  // suppress settle handling during a silent reposition
+
     [prev, next, dotBar].forEach(function (el) { if (el) el.hidden = false; });
 
-    var index = 0;
+    function offsetOf(pos) { return all[pos].offsetLeft - track.offsetLeft; }
 
-    function goTo(i) {
-      index = (i + slides.length) % slides.length;
-      track.scrollTo({
-        left: slides[index].offsetLeft - track.offsetLeft,
-        behavior: reduced ? 'auto' : 'smooth'
+    function glide(pos) {
+      track.scrollTo({ left: offsetOf(pos), behavior: reduced ? 'auto' : 'smooth' });
+    }
+
+    // Reposition with no animation, with snapping briefly off so it cannot
+    // fight the assignment and pull us back.
+    function silentJump(pos) {
+      jumping = true;
+      var snap = track.style.scrollSnapType;
+      track.style.scrollSnapType = 'none';
+      track.style.scrollBehavior = 'auto';
+      track.scrollLeft = offsetOf(pos);
+      requestAnimationFrame(function () {
+        track.style.scrollSnapType = snap || '';
+        track.style.scrollBehavior = '';
+        jumping = false;
       });
-      sync();
     }
 
     function sync() {
       for (var i = 0; i < dots.length; i++) {
-        dots[i].setAttribute('aria-current', i === index ? 'true' : 'false');
+        dots[i].setAttribute('aria-current', i === current ? 'true' : 'false');
       }
     }
 
-    // Keep the dots honest when someone swipes or scrolls the track directly.
+    function nearestPos() {
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      var best = Infinity, at = FIRST;
+      for (var i = 0; i < all.length; i++) {
+        var c = all[i].offsetLeft - track.offsetLeft + all[i].offsetWidth / 2;
+        var d = Math.abs(c - mid);
+        if (d < best) { best = d; at = i; }
+      }
+      return at;
+    }
+
+    function goNext() {
+      if (current === count - 1) { glide(HEAD_CLONE); }  // onward into the clone
+      else { glide(FIRST + current + 1); }
+    }
+
+    function goPrev() {
+      if (current === 0) { glide(TAIL_CLONE); }
+      else { glide(FIRST + current - 1); }
+    }
+
+    // One settle handler covers arrows, dots, autoplay and manual swiping: if we
+    // came to rest on a clone, hop to its real twin.
     var settle;
     track.addEventListener('scroll', function () {
+      if (jumping) return;
       window.clearTimeout(settle);
       settle = window.setTimeout(function () {
-        var mid = track.scrollLeft + track.clientWidth / 2;
-        var nearest = 0, best = Infinity;
-        for (var i = 0; i < slides.length; i++) {
-          var c = slides[i].offsetLeft - track.offsetLeft + slides[i].offsetWidth / 2;
-          var d = Math.abs(c - mid);
-          if (d < best) { best = d; nearest = i; }
-        }
-        index = nearest;
+        var pos = nearestPos();
+        if (pos === HEAD_CLONE)      { current = 0;         silentJump(FIRST); }
+        else if (pos === TAIL_CLONE) { current = count - 1;  silentJump(LAST); }
+        else                         { current = pos - FIRST; }
         sync();
-      }, 90);
+      }, 110);
     }, { passive: true });
 
-    if (prev) prev.addEventListener('click', function () { goTo(index - 1); stop(); });
-    if (next) next.addEventListener('click', function () { goTo(index + 1); stop(); });
+    if (prev) prev.addEventListener('click', function () { goPrev(); stop(); });
+    if (next) next.addEventListener('click', function () { goNext(); stop(); });
     for (var d = 0; d < dots.length; d++) {
       (function (i) {
-        dots[i].addEventListener('click', function () { goTo(i); stop(); });
+        dots[i].addEventListener('click', function () { glide(FIRST + i); stop(); });
       })(d);
     }
 
     track.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(index + 1); stop(); }
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(index - 1); stop(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); stop(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); goPrev(); stop(); }
     });
 
     // Auto-advance, paused while the reader is interacting or the tab is hidden,
@@ -697,7 +757,7 @@
     var timer = null;
     function start() {
       if (reduced || timer) return;
-      timer = window.setInterval(function () { goTo(index + 1); }, 6000);
+      timer = window.setInterval(goNext, 6000);
     }
     function stop() {
       window.clearInterval(timer);
@@ -712,6 +772,8 @@
       document.hidden ? stop() : start();
     });
 
+    // Open on the real first slide rather than the leading clone.
+    silentJump(FIRST);
     sync();
     start();
   })();
