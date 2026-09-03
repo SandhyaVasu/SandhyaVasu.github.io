@@ -14,6 +14,8 @@ summary: A tale from Gokul, where a butter-loving toddler outwits the same
        {: .fig-left}
 
      Alternate .fig-left and .fig-right down the post to zig-zag. -->
+![Vrindavan](/assets/posts/kanha.png)
+       {: .fig-left}
 
 This tale dates back long, long ago— oh, those wondrous times when the sacred
 lotus feet of Yashoda's darling used to tread that soil. We are in the
@@ -24,7 +26,7 @@ cowherds and the chieftain's bundle of energy – little Kanha. This toddler was
 the darling boy of Gokul and hence was lovingly spoiled by everyone. No wonder
 was he the very epitome of naughtiness.
 
-Kahna loved playing pranks, and this was the time when his mischief was at its
+Kanha loved playing pranks, and this was the time when his mischief was at its
 peak.
 
 One day, as he passed by a household, he saw a calf which was tied to a post,
@@ -34,7 +36,7 @@ admiring herself in the mirror, totally lost in her beauty. Kanha chuckled and
 tiptoed near the wailing calf and, in an instant, set it free. Once it started
 running, he went near the window and yelled, "Granny, your calf untied itself
 and has fled!" The poor girl didn't know what to get angry about — for Kanha
-letting her calf lose or calling her a *'granny'*, bringing her image down from
+letting her calf loose or calling her a *'granny'*, bringing her image down from
 the pinnacle of beauty she considered herself to be! Insulted, she gave an
 angry stare at the child and ran in search of the calf lest her mother-in-law
 come to know of it.
@@ -47,7 +49,7 @@ Excitedly, the children sneaked into the house and, seeing nobody inside, went
 straight to the kitchen and helped themselves to sumptuous servings of butter.
 
 Very soon, the front door opened, and Latha showed up in the kitchen with a
-frightful snare! All the boys took to their heels, but for poor Kanha, who was
+frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
 "Can you please explain yourself?"
@@ -58,12 +60,12 @@ stuck atop, clinging to a hanging pot of butter.
 
 "So I thought it came inside your beautiful house."
 
-"Okay, but what are doing up there?"
+"Okay, but what are you doing up there?"
 
 "Mine was a white cow. As soon as I entered, I saw white things up here. So,
 I'm just checking if it is here. But no, the cow isn't here!"
 
-Saying so, Kanha swiftly leaped down and escaped through the window. Suddenly,
+Saying so, Kanha swiftly leapt down and escaped through the window. Suddenly,
 Latha's mother-in-law entered the kitchen and was shaken to see its plight!
 
 "My dear girl, did you have a nice treat? Do you want more butter?" she asked
