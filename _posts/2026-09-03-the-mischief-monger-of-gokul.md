@@ -17,7 +17,7 @@ summary: A tale from Gokul, where a butter-loving toddler outwits the same
 
 <img src="/assets/posts/kanha.png" alt="Kanha in Gokul" class="fig-left">
 
-This tale dates back long, long ago— oh, those wondrous times when the sacred
+This tale dates back long, long ago—oh, those wondrous times when the sacred
 lotus feet of Yashoda's darling used to tread that soil. We are in the
 outskirts of Mathura, in the peaceful village of Gokul, carpeted by lush
 greenery all around, with the enchanting Yamuna waters gushing to embrace the
