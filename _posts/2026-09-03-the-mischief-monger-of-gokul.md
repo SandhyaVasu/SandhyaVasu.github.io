@@ -24,7 +24,7 @@ lotus feet of Yashoda's darling used to tread the blessed soil of Bharat. We are
 outskirts of Mathura, in the peaceful village of Gokul, carpeted by lush
 greenery all around, with the enchanting Yamuna waters gushing to embrace the
 landmass and the placid skies roofing several humble households of milkmaidens,
-cowherds and the chieftain's bundle of energy–little Kanha. This toddler was
+cowherds and the chieftain's bundle of energy—little Kanha. This toddler was
 the darling boy of Gokul and hence was lovingly spoiled by everyone. No wonder
 was he the very epitome of naughtiness. Kanha loved playing pranks, and this was 
 the age when his mischief was at its peak.
