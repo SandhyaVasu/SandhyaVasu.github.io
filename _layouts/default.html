@@ -562,12 +562,17 @@
       display: grid;
       /* Fixed-ish card width, so a single publication does not stretch across
          the column and the row simply fills up as more are added. */
-      grid-template-columns: repeat(auto-fill, minmax(16rem, 21rem));
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 30rem));
       gap: 1.25rem;
       margin-top: 1.5rem;
     }
 
     .pub-card {
+      display: flex;
+      /* Centred, not top-aligned: the cover is shorter than the citation, and
+         splitting the slack above and below reads as padding rather than as a
+         gap left at the bottom. */
+      align-items: center;
       background: var(--card);
       border: 1px solid var(--rule-soft);
       border-radius: 5px;
@@ -575,21 +580,28 @@
       box-shadow: 0 1px 2px rgba(43, 35, 24, 0.04);
     }
 
-    .pub-figure { background: var(--bg-warm); }
+    .pub-figure {
+      flex: 0 0 7.5rem;
+      /* No panel of its own: the cover is shorter than the citation beside it,
+         so a tinted column would leave a visible empty box under it. */
+    }
     .pub-figure img {
       display: block;
       width: 100%;
       height: auto;
     }
     .pub-figure .figure-placeholder {
+      /* The empty state does need a fill, to read as a reserved slot. */
       border: 0;
-      border-bottom: 1px dashed var(--rule);
       border-radius: 0;
-      aspect-ratio: 16 / 10;
+      background: var(--bg-warm);
+      aspect-ratio: 3 / 4;
     }
 
     .pub-body {
-      /* The accent bar down the left, as on a citation card. */
+      flex: 1;
+      min-width: 0;
+      /* The accent bar now separates cover from citation. */
       border-left: 3px solid var(--maroon);
       padding: 1.1rem 1.2rem;
     }
@@ -648,6 +660,11 @@
       font-variant-numeric: tabular-nums;
     }
     .pub-locator strong { color: var(--ink); }
+
+    @media (max-width: 30rem) {
+      .pub-figure { flex-basis: 6rem; }
+      .pub-body { padding: 0.9rem 1rem; }
+    }
 
     /* ── About strip ── */
     .about-strip {
