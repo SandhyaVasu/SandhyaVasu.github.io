@@ -24,10 +24,8 @@ greenery all around, with the enchanting Yamuna waters gushing to embrace the
 landmass and the placid skies roofing several humble households of milkmaidens,
 cowherds and the chieftain's bundle of energy – little Kanha. This toddler was
 the darling boy of Gokul and hence was lovingly spoiled by everyone. No wonder
-was he the very epitome of naughtiness.
-
-Kanha loved playing pranks, and this was the time when his mischief was at its
-peak.
+was he the very epitome of naughtiness. Kanha loved playing pranks, and this was 
+the time when his mischief was at its peak.
 
 
 <img src="/assets/posts/calf.png" alt="Letting calf loose" class="fig-right">
@@ -58,6 +56,8 @@ Very soon, the front door opened, and Latha showed up in the kitchen with a
 frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
+<p align="center">
+
 "Can you please explain yourself?"
 
 "Mother! Please listen to me, one of my cows got lost."
@@ -70,6 +70,8 @@ stuck atop, clinging to a hanging pot of butter.
 
 "Mine was a white cow. As soon as I entered, I saw white things up here. So,
 I'm just checking if it is here. But no, the cow isn't here!"
+
+</p>
 
 Saying so, Kanha swiftly leapt down and escaped through the window. Suddenly,
 Latha's mother-in-law entered the kitchen and was shaken to see its plight!
