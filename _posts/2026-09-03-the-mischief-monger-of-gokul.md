@@ -50,9 +50,9 @@ come to know of it.
 In the evening, when Kanha and his friends were frolicking on the streets,
 hunger pangs overcame them. Just then Kanha sighted the same house and
 whispered to his friends, "Friends, the lady of that house has secretly stored
-all her butter away from our eyes. Now is the time to show our skills!"
+all her butter away from our eyes. I think she is not at home. Now is the time to show our skills!"
 Excitedly, the children sneaked into the house and, seeing nobody inside, went
-straight to the kitchen and helped themselves to sumptuous servings of butter. Very soon, the front door opened, 
+straight to the kitchen and helped themselves to sumptuous servings of butter. Very soon, the door opened, 
 and Latha showed up in the kitchen with a
 frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
