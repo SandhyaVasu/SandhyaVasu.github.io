@@ -79,11 +79,6 @@ stuck atop, clinging to a hanging pot of butter.
 
 <p><strong>Kanha</strong>: "Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
 
-<p>
-<a href="https://youtu.be/t3k9bH670-k?si=LgQbdNizO1O770o-&t=33407">
-Watch the original narration on YouTube
-</a>
-</p>
 
 
 So saying, Kanha swiftly leapt down and escaped through the window. As soon as he was gone,
