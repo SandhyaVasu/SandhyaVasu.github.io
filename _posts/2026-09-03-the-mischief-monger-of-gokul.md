@@ -92,10 +92,10 @@ here to steal."
 
 The girl now wanted sweet revenge!
 
-The next morning, Latha shut the kitchen door and tied a bell to it to alert
+The next morning, Latha shut the back door of the kitchen and tied a bell to it to alert
 her if the young thieves returned and hid herself in the house.
 After a while, just to check if her plan was going smoothly, Latha came to
-inspect the kitchen door. Horror of horrors! It was wide ajar, and a loincloth
+inspect the door. Horror of horrors! It was wide ajar, and a loincloth
 was tied to the tongue of the bell!
 
 {: .fig-left}
