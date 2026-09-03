@@ -58,35 +58,32 @@ frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
   
-<div style="display: flex; align-items: center; gap: 40px;">
+{: .fig-right}
+![Caught in the butter pot](/assets/posts/fun.png)
 
-  <div style="flex: 3; text-align: left;">
+<p><strong>Kanha</strong>: "Welcome home, mother!"</p>
 
-    <p><strong>Kanha</strong>: "Welcome home, mother!"</p>
-    
-    <p><strong>Latha</strong>: "Can you please explain yourself? What is your name?"</p>
-    
-    <p><strong>Kanha</strong> (mischievously): "I am Balaram's younger brother."</p>
-    
-    <p><strong>Latha</strong>: "What are you doing here?"</p>
-    
-    <p><strong>Kanha</strong> (full of innocence): "Mother! I thought this was my home, and so stepped in."</p>
-    
-    <p><strong>Latha</strong>: "Alright, but what are you doing up there?"</p>
-    
-    <p><strong>Kanha</strong>: "You know my mother, Yashoda, sends me to graze the cattle..."</p>
-    
-    <p>He then went on and on about when they left, who all joined him and began narrating an elaborate story that ended with the fact that one of his cows went missing and if he returned home without it, Yashoda would beat him. Latha was so enchanted by the boy and wondered how one so little could speak so much. She forgot all about the butter, to the extent that she was now getting anxious about the missing cow!</p>
-    
-    <p><strong>Kanha</strong>: "Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
+<p><strong>Latha</strong>: "Can you please explain yourself? What is your name?"</p>
 
-  </div>
+<p><strong>Kanha</strong> (mischievously): "I am Balaram's younger brother."</p>
 
-  <div style="flex: 2;">
-    <img src="/assets/posts/fun.png" alt="Caught in the butter pot" style="width: 100%;">
-  </div>
+<p><strong>Latha</strong>: "What are you doing here?"</p>
 
-</div>
+<p><strong>Kanha</strong> (full of innocence): "Mother! I thought this was my home, and so stepped in."</p>
+
+<p><strong>Latha</strong>: "Alright, but what are you doing up there?"</p>
+
+<p><strong>Kanha</strong>: "You know my mother, Yashoda, sends me to graze the cattle."</p>
+
+<p>He then went on and on about when they left, who all joined him and began narrating an elaborate story that ended with the fact that one of his cows went missing and if he returned home, Yashoda would beat him. Latha was so enchanted by the boy and wondered how one so little could speak so much. She forgot all about the butter, to the extent that she was now getting anxious about the missing cow!</p>
+
+<p><strong>Kanha</strong>: "Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
+
+<p>
+<a href="https://youtu.be/t3k9bH670-k?si=LgQbdNizO1O770o-&t=33407">
+Watch the original narration on YouTube
+</a>
+</p>
 
 
 So saying, Kanha swiftly leapt down and escaped through the window. As soon as he was gone,
