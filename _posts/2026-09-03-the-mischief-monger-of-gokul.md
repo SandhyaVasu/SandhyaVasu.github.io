@@ -14,8 +14,8 @@ summary: A tale from Gokul, where a butter-loving toddler outwits the same
        {: .fig-left}
 
      Alternate .fig-left and .fig-right down the post to zig-zag. -->
-![Vrindavan](/assets/posts/kanha.png)
-       {: .fig-left}
+
+<img src="/assets/posts/kanha.png" alt="Kanha in Gokul" class="fig-left">
 
 This tale dates back long, long ago— oh, those wondrous times when the sacred
 lotus feet of Yashoda's darling used to tread that soil. We are in the
