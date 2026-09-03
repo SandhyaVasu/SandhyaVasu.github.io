@@ -61,23 +61,25 @@ stuck atop, clinging to a hanging pot of butter.
 {: .fig-right}
 ![Caught in the butter pot](/assets/posts/fun.png)
 
-<p><strong>Kanha</strong>: "Welcome home, mother!"</p>
+<strong>Kanha</strong>: "Welcome home, mother!"
 
-<p><strong>Latha</strong>: "Can you please explain yourself? What is your name?"</p>
+<strong>Latha</strong>: "Can you please explain yourself? What is your name?"
 
-<p><strong>Kanha</strong> (mischievously): "I am Balaram's younger brother."</p>
+<strong>Kanha</strong> (mischievously): "I am Balaram's younger brother."
 
-<p><strong>Latha</strong>: "What are you doing here?"</p>
+<strong>Latha</strong>: "What are you doing here?"
 
-<p><strong>Kanha</strong> (full of innocence): "Mother! I thought this was my home, and so stepped in."</p>
+<strong>Kanha</strong> (full of innocence): "Mother! I thought this was my home, and so stepped in."
 
-<p><strong>Latha</strong>: "Alright, but what are you doing up there?"</p>
+<strong>Latha</strong>: "Alright, but what are you doing up there?"
 
-<p><strong>Kanha</strong>: "You know my mother, Yashoda, sends me to graze the cattle."</p>
+<strong>Kanha</strong>: "You know my mother, Yashoda, sends me to graze the cattle."
 
-<p>He then went on and on about when they left, who all joined him and began narrating an elaborate story that ended with the fact that one of his cows went missing and if he returned home, Yashoda would beat him. Latha was so enchanted by the boy and wondered how one so little could speak so much. She forgot all about the butter, to the extent that she was now getting anxious about the missing cow!</p>
+He then went on and on about when they left, who all joined him and began narrating an elaborate story that ended with the fact that one of his cows went missing and if he returned home, Yashoda would beat him. Latha was so enchanted by the boy and wondered how one so little could speak so much. She forgot all about the butter, to the extent that she was now getting anxious about the missing cow!
 
-<p><strong>Kanha</strong>: "Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
+<strong>Kanha</strong>: "Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"
+
+<p><a href="https://youtu.be/t3k9bH670-k?si=LgQbdNizO1O770o-&t=33407">Watch the original narration on YouTube</a></p>
 
 
 
