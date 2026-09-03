@@ -821,8 +821,8 @@
     // Native smooth scrolling gives no control over duration, so the glide is
     // tweened here instead: slow enough to follow comfortably, eased at both
     // ends so it never snaps into motion or stops dead.
-    var GLIDE_MS = 900;
-    var DWELL_MS = 8000;
+    var GLIDE_MS = 1000;
+    var DWELL_MS = 5000;
 
     var current = 0;       // index into the real slides
     var jumping = false;   // suppress settle handling during a silent reposition
