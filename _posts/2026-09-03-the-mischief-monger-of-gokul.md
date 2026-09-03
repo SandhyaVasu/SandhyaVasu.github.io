@@ -100,6 +100,7 @@ mother-in-law. "Mother, please come to the kitchen immediately!"
 
 {: .fig-left}
 ![Caught in the butter pot](/assets/posts/redhanded.webp)
+<br>
 Kanha was startled by the sudden turn of events. He couldn't even respond as
 his mouth was full of butter! He quickly jumped up to his feet and, before
 Latha could realise, spat all the butter on her face and disappeared through
