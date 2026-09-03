@@ -74,7 +74,7 @@ layout: default
             <div class="slide-desc">{{ project.content | markdownify }}</div>
             {% if project.link %}
             <a class="slide-cta" href="{{ project.link }}" target="_blank" rel="noopener">
-              Know more
+              {% if project.link contains "github.com" %}View on GitHub{% else %}View project{% endif %}
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
             </a>
             {% endif %}

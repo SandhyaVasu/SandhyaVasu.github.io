@@ -671,15 +671,55 @@
     var all = track.querySelectorAll('.carousel-slide');
     var FIRST = 1, LAST = count, HEAD_CLONE = count + 1, TAIL_CLONE = 0;
 
-    var current = 0;      // index into the real slides
-    var jumping = false;  // suppress settle handling during a silent reposition
+    // Native smooth scrolling gives no control over duration, so the glide is
+    // tweened here instead: slow enough to follow comfortably, eased at both
+    // ends so it never snaps into motion or stops dead.
+    var GLIDE_MS = 900;
+    var DWELL_MS = 8000;
+
+    var current = 0;       // index into the real slides
+    var jumping = false;   // suppress settle handling during a silent reposition
+    var animating = false; // ... and during a glide
+    var raf = null;
+
+    function ease(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
 
     [prev, next, dotBar].forEach(function (el) { if (el) el.hidden = false; });
 
     function offsetOf(pos) { return all[pos].offsetLeft - track.offsetLeft; }
 
-    function glide(pos) {
-      track.scrollTo({ left: offsetOf(pos), behavior: reduced ? 'auto' : 'smooth' });
+    function glide(pos, done) {
+      var from = track.scrollLeft;
+      var to = offsetOf(pos);
+
+      if (reduced || Math.abs(to - from) < 2) {
+        silentJump(pos);
+        if (done) done();
+        return;
+      }
+
+      if (raf) cancelAnimationFrame(raf);
+      animating = true;
+      var snap = track.style.scrollSnapType;
+      track.style.scrollSnapType = 'none';   // stop snapping fighting the tween
+      track.style.scrollBehavior = 'auto';
+
+      var t0 = performance.now();
+      raf = requestAnimationFrame(function step(now) {
+        var t = Math.min(1, (now - t0) / GLIDE_MS);
+        track.scrollLeft = from + (to - from) * ease(t);
+        if (t < 1) {
+          raf = requestAnimationFrame(step);
+        } else {
+          raf = null;
+          track.style.scrollSnapType = snap || '';
+          track.style.scrollBehavior = '';
+          animating = false;
+          if (done) done();
+        }
+      });
     }
 
     // Reposition with no animation, with snapping briefly off so it cannot
@@ -715,35 +755,36 @@
     }
 
     function goNext() {
-      if (current === count - 1) { glide(HEAD_CLONE); }  // onward into the clone
-      else { glide(FIRST + current + 1); }
+      // onward into the clone when wrapping, never backwards
+      glide(current === count - 1 ? HEAD_CLONE : FIRST + current + 1, settled);
     }
 
     function goPrev() {
-      if (current === 0) { glide(TAIL_CLONE); }
-      else { glide(FIRST + current - 1); }
+      glide(current === 0 ? TAIL_CLONE : FIRST + current - 1, settled);
     }
 
-    // One settle handler covers arrows, dots, autoplay and manual swiping: if we
-    // came to rest on a clone, hop to its real twin.
+    // Wherever we came to rest, if it was on a clone, hop to its real twin.
+    // Shared by the glide callback and by manual swiping.
+    function settled() {
+      var pos = nearestPos();
+      if (pos === HEAD_CLONE)      { current = 0;          silentJump(FIRST); }
+      else if (pos === TAIL_CLONE) { current = count - 1;  silentJump(LAST); }
+      else                         { current = pos - FIRST; }
+      sync();
+    }
+
     var settle;
     track.addEventListener('scroll', function () {
-      if (jumping) return;
+      if (jumping || animating) return;   // the tween reports in via its callback
       window.clearTimeout(settle);
-      settle = window.setTimeout(function () {
-        var pos = nearestPos();
-        if (pos === HEAD_CLONE)      { current = 0;         silentJump(FIRST); }
-        else if (pos === TAIL_CLONE) { current = count - 1;  silentJump(LAST); }
-        else                         { current = pos - FIRST; }
-        sync();
-      }, 110);
+      settle = window.setTimeout(settled, 120);
     }, { passive: true });
 
     if (prev) prev.addEventListener('click', function () { goPrev(); stop(); });
     if (next) next.addEventListener('click', function () { goNext(); stop(); });
     for (var d = 0; d < dots.length; d++) {
       (function (i) {
-        dots[i].addEventListener('click', function () { glide(FIRST + i); stop(); });
+        dots[i].addEventListener('click', function () { glide(FIRST + i, settled); stop(); });
       })(d);
     }
 
@@ -757,7 +798,7 @@
     var timer = null;
     function start() {
       if (reduced || timer) return;
-      timer = window.setInterval(goNext, 6000);
+      timer = window.setInterval(goNext, DWELL_MS);
     }
     function stop() {
       window.clearInterval(timer);
