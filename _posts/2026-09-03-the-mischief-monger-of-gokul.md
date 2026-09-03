@@ -86,8 +86,8 @@ After a while, just to check if her plan was going smoothly, Latha came to
 inspect the kitchen door. Horror of horrors! It was wide ajar, and a loincloth
 was tied to the tongue of the bell!
 
-{: .fig-right}
-![Caught in the butter pot](/assets/posts/stealing.png)
+{: .fig-right .fig-sm}
+![Caught in the butter pot](/assets/posts/stealing.webp)
 As she peeped inside, she saw the beautiful scene of Kanha almost drenched in
 butter, totally relishing and having the time of his life! She lost herself for
 a moment in that scene which is sought after by yogis who perform staunch
@@ -98,7 +98,7 @@ house.
 mother-in-law. "Mother, please come to the kitchen immediately!"
 
 {: .fig-left}
-![Caught in the butter pot](/assets/posts/redhanded.png)
+![Caught in the butter pot](/assets/posts/redhanded.webp)
 Kanha was startled by the sudden turn of events. He couldn't even respond as
 his mouth was full of butter! He quickly jumped up to his feet and, before
 Latha could realise, spat all the butter on her face and disappeared through

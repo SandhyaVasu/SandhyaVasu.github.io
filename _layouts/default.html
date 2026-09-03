@@ -673,6 +673,14 @@
     .post-body .fig-left  > img { float: left;  margin: 0.35rem 1.75rem 0.6rem 0; }
     .post-body .fig-right > img { float: right; margin: 0.35rem 0 0.6rem 1.75rem; }
 
+    /* A short passage leaves the picture hanging below the last line. Rather
+       than centre the text (impossible here — the picture lives inside the
+       paragraph, so flex would break the passage at every *italic* into its
+       own column), make the picture narrower: it gets shorter AND the text
+       column gets narrower, so the two meet in the middle. Add alongside the
+       side class:  {: .fig-right .fig-sm} */
+    .post-body .fig-sm > img { width: 34%; }
+
     /* Contain the floats, or they drag past the end of the article. */
     .post-body::after {
       content: '';

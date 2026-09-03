@@ -19,3 +19,13 @@ Two things to watch:
   image would 404 on the live site.
 - Save as `.webp` and about 1000px wide. Each picture renders ~440px, so a
   3MB PNG downloads roughly ten times more than it shows.
+
+If a passage is short and its picture hangs below the last line, add
+`.fig-sm` beside the side class to make the picture narrower — it gets
+shorter and the text column narrower, so the two meet:
+
+    {: .fig-right .fig-sm}
+
+(Centring the text against the picture is not possible here: the picture
+lives inside the paragraph, so a flex row would break the passage into a
+separate column at every *italic*.)
