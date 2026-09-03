@@ -86,8 +86,9 @@ After a while, just to check if her plan was going smoothly, Latha came to
 inspect the kitchen door. Horror of horrors! It was wide ajar, and a loincloth
 was tied to the tongue of the bell!
 
-{: .fig-right .fig-sm}
+{: .fig-right}
 ![Caught in the butter pot](/assets/posts/stealing.webp)
+<br>
 As she peeped inside, she saw the beautiful scene of Kanha almost drenched in
 butter, totally relishing and having the time of his life! She lost herself for
 a moment in that scene which is sought after by yogis who perform staunch
