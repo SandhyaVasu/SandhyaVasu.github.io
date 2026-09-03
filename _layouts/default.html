@@ -580,10 +580,9 @@
 
     .pub-card {
       display: flex;
-      /* Centred, not top-aligned: the cover is shorter than the citation, and
-         splitting the slack above and below reads as padding rather than as a
-         gap left at the bottom. */
-      align-items: center;
+      /* Stretch, so the cover column is exactly as tall as the citation
+         beside it and the two read as one balanced pair. */
+      align-items: stretch;
       background: var(--card);
       border: 1px solid var(--rule-soft);
       border-radius: 5px;
@@ -592,21 +591,25 @@
     }
 
     .pub-figure {
-      flex: 0 0 7.5rem;
-      /* No panel of its own: the cover is shorter than the citation beside it,
-         so a tinted column would leave a visible empty box under it. */
+      /* Fixed width, full card height. Every cover therefore occupies the same
+         slot whatever its own proportions, as the carousel figures do. */
+      flex: 0 0 10rem;
     }
     .pub-figure img {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
+      /* contain, not cover: a book cover must not be cropped. */
+      object-fit: contain;
     }
     .pub-figure .figure-placeholder {
-      /* The empty state does need a fill, to read as a reserved slot. */
+      /* Fills the stretched column, so no aspect ratio of its own. */
       border: 0;
       border-radius: 0;
       background: var(--bg-warm);
-      aspect-ratio: 3 / 4;
+      width: 100%;
+      height: 100%;
+      min-height: 11rem;
     }
 
     .pub-body {
@@ -673,7 +676,7 @@
     .pub-locator strong { color: var(--ink); }
 
     @media (max-width: 30rem) {
-      .pub-figure { flex-basis: 6rem; }
+      .pub-figure { flex-basis: 7rem; }
       .pub-body { padding: 0.9rem 1rem; }
     }
 
