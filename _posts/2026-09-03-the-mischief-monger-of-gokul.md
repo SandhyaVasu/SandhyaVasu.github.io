@@ -29,6 +29,9 @@ was he the very epitome of naughtiness.
 Kanha loved playing pranks, and this was the time when his mischief was at its
 peak.
 
+
+<img src="/assets/posts/calf.png" alt="Letting calf loose" class="fig-right">
+
 One day, as he passed by a household, he saw a calf which was tied to a post,
 trying frantically to free itself. Kanha peeped inside the house to see if
 anyone was watching him. Through the window, he saw a young milkmaid, Latha,
@@ -40,6 +43,9 @@ letting her calf loose or calling her a *'granny'*, bringing her image down from
 the pinnacle of beauty she considered herself to be! Insulted, she gave an
 angry stare at the child and ran in search of the calf lest her mother-in-law
 come to know of it.
+
+
+<img src="/assets/posts/butter.png" alt="butter" class="fig-left">
 
 In the evening, when Kanha and his friends were frolicking on the streets,
 hunger pangs overcame them. Just then Kanha sighted the same house and
