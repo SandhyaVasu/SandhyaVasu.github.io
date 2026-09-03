@@ -530,6 +530,18 @@
     }
 
 
+    .post-group {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .post-group:first-of-type { margin-top: 0; }
+
     /* ── Post page ── */
     /* Wraps the Markdown body of a single post. */
     .post-page {
@@ -614,6 +626,45 @@
     }
 
     .post-body img { max-width: 100%; border-radius: 4px; }
+
+    /* Figures beside the text. In Markdown, put the class under the image:
+         ![alt](/assets/posts/pic.png)
+         {: .fig-left}
+       Alternate .fig-left and .fig-right down the post to zig-zag. */
+    .post-body .fig-left,
+    .post-body .fig-right {
+      width: 45%;
+      margin-top: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .post-body .fig-left  { float: left;  margin-right: 1.75rem; }
+    .post-body .fig-right { float: right; margin-left: 1.75rem; }
+
+    .post-body .fig-left img,
+    .post-body .fig-right img {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--rule-soft);
+      border-radius: 4px;
+    }
+
+    /* Contain the floats, or they drag past the end of the article. */
+    .post-body::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    @media (max-width: 600px) {
+      /* No room to wrap text beside a picture — stack instead. */
+      .post-body .fig-left,
+      .post-body .fig-right {
+        float: none;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
 
     .post-body table {
       width: 100%;

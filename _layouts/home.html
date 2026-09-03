@@ -26,23 +26,51 @@ layout: default
 
 <section class="posts-section" id="posts">
   <div class="container">
-    <h2 class="section-heading">{% if site.posts.size > 0 %}All Posts{% else %}Writing{% endif %}</h2>
+    <h2 class="section-heading">Writing</h2>
     {% if site.posts.size == 0 %}
     <p class="posts-empty">No posts yet — the first ones are in progress.</p>
     {% endif %}
-    <ul class="post-list">
-      {% for post in site.posts %}
-      <li class="post-item">
-        <div class="post-meta">
-          <span>{{ post.date | date: "%B %Y" }}</span>
-          {% for tag in post.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
-        </div>
-        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <p>{{ post.summary | default: post.excerpt | strip_html | strip_newlines | truncate: 200 }}</p>
-        <a class="read-more" href="{{ post.url | relative_url }}">Read &rarr;</a>
-      </li>
-      {% endfor %}
-    </ul>
+
+    {%- comment -%}
+      Two streams, plus anything uncategorised. Group headings appear only when
+      more than one stream has posts, so a single-stream blog stays a plain list.
+    {%- endcomment -%}
+    {% assign lab    = site.posts | where: "category", "from-the-lab" %}
+    {% assign beyond = site.posts | where: "category", "beyond-the-lab" %}
+    {% assign loose  = site.posts | where_exp: "p", "p.category == nil" %}
+
+    {% assign filled = 0 %}
+    {% if lab.size    > 0 %}{% assign filled = filled | plus: 1 %}{% endif %}
+    {% if beyond.size > 0 %}{% assign filled = filled | plus: 1 %}{% endif %}
+    {% if loose.size  > 0 %}{% assign filled = filled | plus: 1 %}{% endif %}
+
+    {% assign streams = "" | split: "" %}
+    {% if lab.size    > 0 %}{% assign streams = streams | push: "from-the-lab" %}{% endif %}
+    {% if beyond.size > 0 %}{% assign streams = streams | push: "beyond-the-lab" %}{% endif %}
+    {% if loose.size  > 0 %}{% assign streams = streams | push: "loose" %}{% endif %}
+
+    {% for stream in streams %}
+      {% case stream %}
+        {% when "from-the-lab"   %}{% assign group = lab    %}{% assign label = "From the lab" %}
+        {% when "beyond-the-lab" %}{% assign group = beyond %}{% assign label = "Beyond the lab" %}
+        {% else                   %}{% assign group = loose  %}{% assign label = "Other" %}
+      {% endcase %}
+
+      {% if filled > 1 %}<h3 class="post-group">{{ label }}</h3>{% endif %}
+      <ul class="post-list">
+        {% for post in group %}
+        <li class="post-item">
+          <div class="post-meta">
+            <span>{{ post.date | date: "%B %Y" }}</span>
+            {% for tag in post.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
+          </div>
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p>{{ post.summary | default: post.excerpt | strip_html | strip_newlines | truncate: 200 }}</p>
+          <a class="read-more" href="{{ post.url | relative_url }}">Read &rarr;</a>
+        </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
   </div>
 </section>
 
