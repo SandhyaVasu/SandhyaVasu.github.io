@@ -2,7 +2,7 @@
 title: Reaction Lethality and Metabolic Rescue in Communities
 status: completed
 order: 1
-tags: [Python, COBRApy, MiCoM]
+tags: [Python, COBRApy, MICOM]
 # Drop a figure in assets/projects/ and name it here, e.g. image: cosmos.png
 image:
 link: https://github.com/SandhyaVasu/BT7999
