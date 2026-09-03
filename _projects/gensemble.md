@@ -3,6 +3,8 @@ title: "Gensemble: the Genome Assembly Game"
 status: completed
 order: 4
 tags: [Python, Pygame]
+# Drop a figure in assets/projects/ and name it here, e.g. image: cosmos.png
+image:
 link: https://github.com/SandhyaVasu/Gensemble
 ---
 

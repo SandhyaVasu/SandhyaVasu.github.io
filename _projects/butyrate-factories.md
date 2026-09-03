@@ -3,6 +3,8 @@ title: Tracking the Dynamics of the Gut's Butyrate Factories
 status: completed
 order: 2
 tags: [Python, COBRApy, dFBA]
+# Drop a figure in assets/projects/ and name it here, e.g. image: cosmos.png
+image:
 link: https://github.com/SandhyaVasu/CSB_Project
 ---
 

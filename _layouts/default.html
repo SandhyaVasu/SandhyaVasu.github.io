@@ -269,49 +269,6 @@
       margin-bottom: 1rem;
     }
 
-    .project-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-    }
-
-    .project-item {
-      background: var(--card);
-      border: 1px solid var(--rule-soft);
-      border-radius: 5px;
-      padding: 1.4rem 1.5rem;
-      box-shadow: 0 1px 2px rgba(43, 35, 24, 0.04);
-    }
-
-    .project-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.5rem;
-    }
-
-    .project-item h4 {
-      font-family: 'Lora', serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .project-item h4 a {
-      color: var(--ink);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .project-item h4 a:hover { color: var(--accent); }
-
-    .project-item p {
-      color: var(--muted);
-      font-size: 0.95rem;
-      max-width: 60ch;
-    }
-
     .status-tag {
       font-size: 0.75rem;
       font-weight: 500;
@@ -321,25 +278,170 @@
     .status-ongoing { background: var(--maroon-soft); color: var(--maroon); }
     .status-done    { background: var(--bg-warm);     color: var(--muted); }
 
-    /* ── Project card entrance ── */
-    /* JS adds .reveal-init (the offscreen start state) and then .reveal-in as
-       each card scrolls into view. With JS off, neither class is applied and
-       the cards simply render in place. */
-    .reveal-init {
-      opacity: 0;
-      transform: translateX(2.5rem);
+    /* ── Projects carousel ── */
+    /* One project per panel. The track is a scroll-snap strip, so with no JS
+       it stays a usable swipe/scroll carousel; the script only layers on the
+       arrows, dots and auto-advance (which is why those start hidden). */
+    .carousel { margin-top: 1.5rem; }
+
+    .carousel-viewport {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      /* Bounded here, not on the slide: a max-width on the flex item would
+         make each slide narrower than the track and let the next one peek in. */
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1rem;
     }
 
-    .reveal-in {
-      opacity: 1;
-      transform: none;
-      transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+    .carousel-track {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      outline-offset: 4px;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: 2.5rem;
+      align-items: center;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .reveal-init { opacity: 1; transform: none; }
-      .reveal-in   { transition: none; }
+    .slide-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+      font-weight: 600;
+      line-height: 1.25;
+      margin: 0.6rem 0 0.7rem;
     }
+
+    .slide-desc p {
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+    .slide-desc p + p { margin-top: 0.7rem; }
+
+    .slide-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.4rem;
+      padding: 0.6rem 1.1rem;
+      background: var(--maroon);
+      color: #FCFAF6;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .slide-cta:hover { background: #6A322A; }
+    .slide-cta svg {
+      width: 0.9rem;
+      height: 0.9rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.2s;
+    }
+    .slide-cta:hover svg { transform: translateX(2px); }
+
+    .slide-figure { min-width: 0; }
+
+    .slide-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--rule-soft);
+      border-radius: 6px;
+      background: var(--card);
+    }
+
+    .figure-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 4 / 3;
+      border: 1px dashed var(--rule);
+      border-radius: 6px;
+      background: var(--card);
+    }
+    .figure-placeholder span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Carousel controls ── */
+    .carousel-arrow {
+      flex: 0 0 auto;
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      color: var(--maroon);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+    }
+    .carousel-arrow svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .carousel-arrow:hover { background: var(--card); border-color: var(--maroon); }
+    .carousel-arrow:disabled { opacity: 0.3; cursor: default; }
+    .carousel-arrow:disabled:hover { background: none; border-color: var(--rule); }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .carousel-dot {
+      width: 1.6rem;
+      height: 3px;
+      padding: 0;
+      border: 0;
+      border-radius: 2px;
+      background: var(--rule);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dot:hover { background: var(--accent2); }
+    .carousel-dot[aria-current="true"] { background: var(--maroon); }
+
+    @media (max-width: 780px) {
+      .carousel-slide {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+      }
+      .carousel-arrow { display: none; }
+    }
+
 
     /* ── Post page ── */
     /* Wraps the Markdown body of a single post. */
@@ -523,31 +625,95 @@
   </footer>
 
 <script>
-  // Slide each project card in from the right, one after another, as the
-  // Projects section comes into view.
+  // Projects carousel. The track is already a working scroll-snap strip on its
+  // own, so everything here is an enhancement: the arrows and dots stay hidden
+  // until we know the script ran.
   (function () {
-    var cards = document.querySelectorAll('.projects-section .project-item');
-    if (!cards.length) return;
+    var root = document.querySelector('[data-carousel]');
+    if (!root) return;
+
+    var track  = root.querySelector('.carousel-track');
+    var slides = root.querySelectorAll('.carousel-slide');
+    var prev   = root.querySelector('[data-carousel-prev]');
+    var next   = root.querySelector('[data-carousel-next]');
+    var dotBar = root.querySelector('[data-carousel-dots]');
+    var dots   = root.querySelectorAll('[data-carousel-goto]');
+    if (!track || slides.length < 2) return;
 
     var reduced = window.matchMedia
       && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced || !('IntersectionObserver' in window)) return;
 
-    // Only hide the cards once we know we can animate them back in.
-    for (var i = 0; i < cards.length; i++) cards[i].classList.add('reveal-init');
+    [prev, next, dotBar].forEach(function (el) { if (el) el.hidden = false; });
 
-    var observer = new IntersectionObserver(function (entries) {
-      var shown = 0;
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var card = entry.target;
-        window.setTimeout(function () { card.classList.add('reveal-in'); }, shown * 130);
-        shown++;
-        observer.unobserve(card);
+    var index = 0;
+
+    function goTo(i) {
+      index = (i + slides.length) % slides.length;
+      track.scrollTo({
+        left: slides[index].offsetLeft - track.offsetLeft,
+        behavior: reduced ? 'auto' : 'smooth'
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      sync();
+    }
 
-    for (var j = 0; j < cards.length; j++) observer.observe(cards[j]);
+    function sync() {
+      for (var i = 0; i < dots.length; i++) {
+        dots[i].setAttribute('aria-current', i === index ? 'true' : 'false');
+      }
+    }
+
+    // Keep the dots honest when someone swipes or scrolls the track directly.
+    var settle;
+    track.addEventListener('scroll', function () {
+      window.clearTimeout(settle);
+      settle = window.setTimeout(function () {
+        var mid = track.scrollLeft + track.clientWidth / 2;
+        var nearest = 0, best = Infinity;
+        for (var i = 0; i < slides.length; i++) {
+          var c = slides[i].offsetLeft - track.offsetLeft + slides[i].offsetWidth / 2;
+          var d = Math.abs(c - mid);
+          if (d < best) { best = d; nearest = i; }
+        }
+        index = nearest;
+        sync();
+      }, 90);
+    }, { passive: true });
+
+    if (prev) prev.addEventListener('click', function () { goTo(index - 1); stop(); });
+    if (next) next.addEventListener('click', function () { goTo(index + 1); stop(); });
+    for (var d = 0; d < dots.length; d++) {
+      (function (i) {
+        dots[i].addEventListener('click', function () { goTo(i); stop(); });
+      })(d);
+    }
+
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(index + 1); stop(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(index - 1); stop(); }
+    });
+
+    // Auto-advance, paused while the reader is interacting or the tab is hidden,
+    // and off entirely for anyone who asked for reduced motion.
+    var timer = null;
+    function start() {
+      if (reduced || timer) return;
+      timer = window.setInterval(function () { goTo(index + 1); }, 6000);
+    }
+    function stop() {
+      window.clearInterval(timer);
+      timer = null;
+    }
+
+    ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) {
+      root.addEventListener(ev, stop, { passive: true });
+    });
+    root.addEventListener('mouseleave', start);
+    document.addEventListener('visibilitychange', function () {
+      document.hidden ? stop() : start();
+    });
+
+    sync();
+    start();
   })();
 </script>
 

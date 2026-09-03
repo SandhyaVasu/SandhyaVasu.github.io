@@ -46,46 +46,66 @@ layout: default
   <div class="container">
     <h2 class="section-heading tight">Projects</h2>
     <p class="projects-note">{{ page.projects_note }}</p>
+  </div>
 
-    {% assign sorted = site.projects | sort: "order" %}
-    {% assign ongoing = sorted | where: "status", "ongoing" %}
-    {% assign finished = sorted | where: "status", "completed" %}
+  {% assign projects = site.projects | sort: "order" %}
+  <div class="carousel" data-carousel>
+    <div class="carousel-viewport">
+      <button class="carousel-arrow prev" type="button" data-carousel-prev
+              aria-label="Previous project" aria-controls="project-track" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
 
-    {% comment %} Only label the groups when there is more than one to tell apart. {% endcomment %}
-    {% assign show_groups = false %}
-    {% if ongoing.size > 0 and finished.size > 0 %}{% assign show_groups = true %}{% endif %}
+      <div class="carousel-track" id="project-track" tabindex="0"
+           role="group" aria-label="Projects, {{ projects.size }} in total">
+        {% for project in projects %}
+        <article class="carousel-slide" aria-label="{{ project.title }}"
+                 aria-roledescription="slide">
+          <div class="slide-text">
+            <div class="project-meta">
+              {% if project.status == "ongoing" %}
+                <span class="status-tag status-ongoing">Ongoing</span>
+              {% else %}
+                <span class="status-tag status-done">Completed</span>
+              {% endif %}
+              {% for tag in project.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
+            </div>
+            <h3 class="slide-title">{{ project.title }}</h3>
+            <div class="slide-desc">{{ project.content | markdownify }}</div>
+            {% if project.link %}
+            <a class="slide-cta" href="{{ project.link }}" target="_blank" rel="noopener">
+              Know more
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+            </a>
+            {% endif %}
+          </div>
 
-    {% if ongoing.size > 0 %}
-    {% if show_groups %}<h3 class="project-group">Ongoing</h3>{% endif %}
-    <ul class="project-list">
-      {% for project in ongoing %}
-      <li class="project-item">
-        <div class="project-meta">
-          <span class="status-tag status-ongoing">Ongoing</span>
-          {% for tag in project.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
-        </div>
-        <h4>{% if project.link %}<a href="{{ project.link }}" target="_blank" rel="noopener">{{ project.title }}</a>{% else %}{{ project.title }}{% endif %}</h4>
-        {{ project.content | markdownify }}
-      </li>
+          <div class="slide-figure">
+            {% if project.image %}
+              <img src="{{ '/assets/projects/' | append: project.image | relative_url }}"
+                   alt="Figure from {{ project.title }}" loading="lazy" />
+            {% else %}
+              <div class="figure-placeholder">
+                <span>Image to be added</span>
+              </div>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <button class="carousel-arrow next" type="button" data-carousel-next
+              aria-label="Next project" aria-controls="project-track" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="carousel-dots" data-carousel-dots hidden>
+      {% for project in projects %}
+      <button class="carousel-dot" type="button" data-carousel-goto="{{ forloop.index0 }}"
+              aria-label="Go to {{ project.title }}"></button>
       {% endfor %}
-    </ul>
-    {% endif %}
-
-    {% if finished.size > 0 %}
-    {% if show_groups %}<h3 class="project-group">Completed</h3>{% endif %}
-    <ul class="project-list">
-      {% for project in finished %}
-      <li class="project-item">
-        <div class="project-meta">
-          <span class="status-tag status-done">Completed</span>
-          {% for tag in project.tags %}<span class="post-tag">{{ tag }}</span>{% endfor %}
-        </div>
-        <h4>{% if project.link %}<a href="{{ project.link }}" target="_blank" rel="noopener">{{ project.title }}</a>{% else %}{{ project.title }}{% endif %}</h4>
-        {{ project.content | markdownify }}
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
+    </div>
   </div>
 </section>
 

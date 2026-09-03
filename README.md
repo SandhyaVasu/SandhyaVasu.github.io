@@ -49,8 +49,18 @@ link: https://github.com/SandhyaVasu/task-tracker
 A one- or two-sentence description of the project.
 ```
 
-Projects are grouped on the homepage under **Ongoing** and **Completed** based
-on the `status` field. `link` is optional — without it the title is plain text.
+Projects appear on the homepage as a carousel — one per panel, advancing
+automatically, with arrows, dots and keyboard arrow keys. `link` becomes the
+"Know more" button; without it the button is omitted.
+
+### Adding a project figure
+
+Each slide has space for an image on the right. Put the file in
+`assets/projects/` and name it in the front matter:
+
+    image: butyrate-overview.png
+
+Until then the slide shows an "Image to be added" placeholder.
 
 ## Editing the homepage and About text
 
@@ -64,6 +74,7 @@ _config.yml            site title, tagline, and Jekyll settings
 index.md               homepage — About text, in Markdown
 _posts/                blog posts, one Markdown file each
 _projects/             projects, one Markdown file each
+assets/projects/       project figures
 _layouts/
   default.html         the page shell: styles, header, footer, page borders
   home.html            homepage structure
