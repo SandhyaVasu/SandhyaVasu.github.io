@@ -2,21 +2,25 @@
 layout: default
 ---
 
-{% assign latest = site.posts.first %}
-<section class="hero">
-  <div class="container">
-    {% if latest %}
-      <p class="hero-label">Latest post</p>
-      <h2><a href="{{ latest.url | relative_url }}">{{ latest.title }}</a></h2>
-      <p>{{ latest.summary | default: latest.excerpt | strip_html | strip_newlines | truncate: 220 }}</p>
-      <a class="read-more" href="{{ latest.url | relative_url }}">Read post &rarr;</a>
-    {% else %}
-      {% comment %} No posts yet: lead with the intro from index.md instead. {% endcomment %}
-      <p class="hero-label">{{ page.intro_label }}</p>
+<section class="intro">
+  <div class="container intro-grid">
+    <div class="intro-text">
       <h2>{{ page.intro_title }}</h2>
-      <p>{{ page.intro_text }}</p>
-      <a class="read-more" href="#projects">See the projects &rarr;</a>
-    {% endif %}
+      {{ content }}
+    </div>
+    <div class="intro-figure">
+      {%- assign portrait = "" -%}
+      {%- for f in site.static_files -%}
+        {%- if f.path == "/assets/intro.png" or f.path == "/assets/intro.jpg" or f.path == "/assets/intro.webp" -%}
+          {%- assign portrait = f.path -%}{%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {% if portrait != "" %}
+        <img src="{{ portrait | relative_url }}" alt="{{ site.title }}" />
+      {% else %}
+        <div class="figure-placeholder"><span>assets/intro.png</span></div>
+      {% endif %}
+    </div>
   </div>
 </section>
 
@@ -154,9 +158,8 @@ layout: default
   </div>
 </section>
 
-<section class="about-strip" id="about">
+<section class="quote-strip">
   <div class="container">
-    <h2>About</h2>
-    {{ content }}
+    <blockquote class="page-quote">{{ page.quote }}</blockquote>
   </div>
 </section>

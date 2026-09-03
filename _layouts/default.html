@@ -25,6 +25,8 @@
       --rule-soft: #E5DCCD;
       --maroon:      #7C3B32;
       --maroon-soft: #EFE1DD;
+      --green:       #4C6340;
+      --green-soft:  #E5EBDB;
       /* Size of the lotus edge motif. Raise to enlarge the lotuses; the
          strip width and the spacing between them scale to match. */
       --lotus-scale: 1.8;
@@ -44,9 +46,9 @@
 
     /* ── Header ── */
     header {
-      /* Same warm band as the Writing section. The hero below stays --bg, so
-         no two adjacent sections share a shade. */
-      background: var(--bg-warm);
+      /* Same shade as the Writing section — keep the two in step if either
+         changes. The intro below stays --bg, so adjacent bands still differ. */
+      background: var(--surface);
       border-bottom: 1px solid var(--rule);
       padding: 2rem 0 1.5rem;
       text-align: center;
@@ -128,6 +130,67 @@
 
     @media (min-width: 900px) {
       .page-edge { display: block; }
+    }
+
+    /* ── Intro panel ── */
+    /* Permanent, not a no-posts fallback: it carries the "who I am" content
+       now that the About strip is gone. */
+    .intro {
+      padding: 3.5rem 0;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .intro-text h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.3;
+      text-wrap: balance;
+      margin-bottom: 1rem;
+    }
+
+    .intro-text p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .intro-text p + p { margin-top: 0.8rem; }
+
+    .intro-text a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .intro-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid var(--rule-soft);
+    }
+
+    .intro-figure .figure-placeholder {
+      aspect-ratio: 1 / 1;
+      background: var(--card);
+      border: 1px dashed var(--rule);
+      border-radius: 6px;
+      max-height: none;
+    }
+
+    @media (max-width: 700px) {
+      .intro-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.75rem;
+      }
+      /* Picture first on a narrow screen, then the words. */
+      .intro-figure { order: -1; max-width: 15rem; }
     }
 
     /* ── Hero ── */
@@ -289,7 +352,7 @@
       border-radius: 3px;
     }
     .status-ongoing { background: var(--maroon-soft); color: var(--maroon); }
-    .status-done    { background: var(--bg-warm);     color: var(--muted); }
+    .status-done    { background: var(--green-soft);  color: var(--green); }
 
     /* ── Projects carousel ── */
     /* One project per panel. The track is a scroll-snap strip, so with no JS
@@ -697,32 +760,46 @@
       .pub-body { padding: 0.9rem 1rem; }
     }
 
-    /* ── About strip ── */
-    .about-strip {
+    /* ── Closing quote ── */
+    .quote-strip {
       background: var(--surface);
       border-top: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
-      padding: 3rem 0;
+      padding: 3.5rem 0;
     }
 
-    .about-strip h2 {
+    .page-quote {
       font-family: 'Lora', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
+      font-size: clamp(1.1rem, 2.4vw, 1.45rem);
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--ink);
+      text-align: center;
+      text-wrap: balance;
+      max-width: 46rem;
+      margin: 0 auto;
+      /* Hanging quote mark, so the text itself stays flush. */
+      position: relative;
     }
 
-    .about-strip p {
-      color: var(--muted);
-      max-width: 55ch;
-      font-size: 0.95rem;
+    .page-quote::before {
+      content: '\201C';
+      font-size: 2.6em;
+      line-height: 0;
+      color: var(--maroon);
+      opacity: 0.35;
+      vertical-align: -0.35em;
+      margin-right: 0.1em;
     }
 
-    .about-strip p + p { margin-top: 0.8rem; }
-
-    .about-strip a {
-      color: var(--accent);
-      text-decoration: underline;
+    .page-quote::after {
+      content: '\201D';
+      font-size: 2.6em;
+      line-height: 0;
+      color: var(--maroon);
+      opacity: 0.35;
+      vertical-align: -0.45em;
+      margin-left: 0.05em;
     }
 
     /* ── Footer ── */
@@ -755,7 +832,6 @@
         <a href="{{ '/#posts' | relative_url }}">Posts</a>
         <a href="{{ '/#projects' | relative_url }}">Projects</a>
         <a href="{{ '/#publications' | relative_url }}">Publications</a>
-        <a href="{{ '/#about' | relative_url }}">About</a>
         <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
