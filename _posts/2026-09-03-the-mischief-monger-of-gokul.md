@@ -58,22 +58,27 @@ frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
 
-{: .fig-right}
-![Caught in the butter pot](/assets/posts/fun.png)
+<div style="display: flex; align-items: center; gap: 40px;">
 
-<div style="text-align: center;">
+  <div style="flex: 3; text-align: center;">
 
-<p>"Can you please explain yourself?"</p>
+    <p>"Can you please explain yourself?"</p>
 
-<p>"Mother! Please listen to me, one of my cows got lost."</p>
+    <p>"Mother! Please listen to me, one of my cows got lost."</p>
 
-<p>"Go on"</p>
+    <p>"Go on"</p>
 
-<p>"So I thought it came inside your beautiful house."</p>
+    <p>"So I thought it came inside your beautiful house."</p>
 
-<p>"Okay, but what are you doing up there?"</p>
+    <p>"Okay, but what are you doing up there?"</p>
 
-<p>"Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
+    <p>"Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
+
+  </div>
+
+  <div style="flex: 2;">
+    <img src="/assets/posts/fun.png" alt="Caught in the butter pot" style="width: 100%;">
+  </div>
 
 </div>
 
