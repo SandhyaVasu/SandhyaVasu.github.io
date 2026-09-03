@@ -81,14 +81,8 @@ layout: default
           </div>
 
           <div class="slide-figure">
-            {% if project.image %}
-              <img src="{{ '/assets/projects/' | append: project.image | relative_url }}"
-                   alt="Figure from {{ project.title }}" loading="lazy" />
-            {% else %}
-              <div class="figure-placeholder">
-                <span>Image to be added</span>
-              </div>
-            {% endif %}
+            {% include figure.html doc=project dir="projects"
+                       alt=project.title placeholder="Image to be added" %}
           </div>
         </article>
         {% endfor %}
@@ -119,12 +113,8 @@ layout: default
       {% for pub in pubs %}
       <article class="pub-card">
         <div class="pub-figure">
-          {% if pub.image %}
-            <img src="{{ '/assets/publications/' | append: pub.image | relative_url }}"
-                 alt="Cover for {{ pub.title }}" loading="lazy" />
-          {% else %}
-            <div class="figure-placeholder"><span>Cover to be added</span></div>
-          {% endif %}
+          {% include figure.html doc=pub dir="publications"
+                     alt=pub.title placeholder="Cover to be added" %}
         </div>
 
         <div class="pub-body">

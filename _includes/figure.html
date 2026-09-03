@@ -1,0 +1,35 @@
+{%- comment -%}
+  Resolve a figure for a collection document.
+
+    include.doc          the document
+    include.dir          "projects" or "publications"
+    include.alt          alt text
+    include.placeholder  caption for the empty state
+
+  An explicit `image:` in the front matter wins; otherwise a file named after
+  the document's own filename is picked up automatically, so dropping in
+  gensemble.png is enough. Either way the file must actually exist in the built
+  site, so a missing or misspelt name falls back to the placeholder rather than
+  rendering a broken image.
+{%- endcomment -%}
+
+{%- assign slug = include.doc.path | split: "/" | last | split: "." | first -%}
+{%- assign dir = "/assets/" | append: include.dir | append: "/" -%}
+{%- assign exts = ".png,.jpg,.jpeg,.webp,.gif,.svg" -%}
+{%- assign found = "" -%}
+
+{%- for f in site.static_files -%}
+  {%- if f.path contains dir and exts contains f.extname -%}
+    {%- if include.doc.image -%}
+      {%- if f.name == include.doc.image -%}{%- assign found = f.path -%}{%- endif -%}
+    {%- elsif f.basename == slug -%}
+      {%- assign found = f.path -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if found != "" -%}
+<img src="{{ found | relative_url }}" alt="{{ include.alt }}" loading="lazy" />
+{%- else -%}
+<div class="figure-placeholder"><span>{{ include.placeholder }}</span></div>
+{%- endif -%}

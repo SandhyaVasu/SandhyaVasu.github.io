@@ -56,11 +56,14 @@ automatically, with arrows, dots and keyboard arrow keys. `link` becomes the
 ### Adding a project figure
 
 Each slide has space for an image on the right. Put the file in
-`assets/projects/` and name it in the front matter:
+`assets/projects/`, named after the project's Markdown file, and it is picked
+up automatically:
 
-    image: butyrate-overview.png
+    _projects/gensemble.md  ->  assets/projects/gensemble.png
 
-Until then the slide shows an "Image to be added" placeholder.
+To use a different filename, set `image:` in the front matter instead. Either
+way the file has to exist, so a wrong name shows the placeholder rather than a
+broken image. Publication covers work the same way, in `assets/publications/`.
 
 ## Adding a publication
 
@@ -86,7 +89,8 @@ A two-line summary of the work.
 
 Every field except `title` is optional and simply omitted from the card when
 blank — so a missing page range or year leaves a gap rather than showing
-something wrong. Covers go in `assets/publications/`.
+something wrong. Covers go in `assets/publications/`, named after the
+Markdown file, and `image:` is only needed to override that.
 
 ## Editing the homepage and About text
 
