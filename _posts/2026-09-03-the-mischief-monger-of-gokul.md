@@ -94,7 +94,6 @@ a moment in that scene which is sought after by yogis who perform staunch
 *tapasya*! But the *lila* had to continue, so *maya* took over, and her
 attention went to the main door, from where her mother-in-law was entering the
 house.
-
 "Aha! You will be caught red-handed, Kanha!" shouted Latha, also calling her
 mother-in-law. "Mother, please come to the kitchen immediately!"
 
@@ -104,13 +103,10 @@ Kanha was startled by the sudden turn of events. He couldn't even respond as
 his mouth was full of butter! He quickly jumped up to his feet and, before
 Latha could realise, spat all the butter on her face and disappeared through
 the window!
-
 By the time a shocked Latha could rub her eyes off the butter, she saw an angry
 figure yelling with her hands on her hips.
-
 "Latha! It is you who has been eating all the butter, and you simply blame the
 poor children! Shame on you!"
-
 Kanha ran away to a safe distance and laughed aloud to his heart's content!!
 
 ---
