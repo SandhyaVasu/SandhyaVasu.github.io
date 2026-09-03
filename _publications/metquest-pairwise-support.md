@@ -4,9 +4,8 @@ authors: Pratyay Sengupta, Sandhya Vasudevan, Karthik Raman
 venue: Methods in Molecular Biology
 venue_short: Methods Mol Biol
 volume: 3006
-# Fill these in from the paper — left blank so nothing wrong is displayed.
-pages:
-year:
+pages: 175-190
+year: 2026
 doi: 10.1007/978-1-0716-5080-6_9
 link: https://link.springer.com/protocol/10.1007/978-1-0716-5080-6_9
 # Cover or figure: drop the file in assets/publications/ and name it here.

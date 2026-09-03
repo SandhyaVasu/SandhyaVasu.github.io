@@ -313,9 +313,13 @@
       flex: 0 0 100%;
       scroll-snap-align: center;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
       gap: 2.5rem;
       align-items: center;
+      /* Inset from the slide edges so the figure never sits flush against the
+         next panel. Padding is safe here — box-sizing keeps the slide exactly
+         one track wide. It was a max-width that previously broke the fit. */
+      padding: 0 1.75rem;
     }
 
     .slide-title {
@@ -364,8 +368,14 @@
 
     .slide-figure img {
       display: block;
-      width: 100%;
+      /* Bounded on both axes and auto-sized, so a wide screenshot and a tall
+         diagram both land at a similar visual weight instead of the widest
+         one setting the pace. */
+      width: auto;
       height: auto;
+      max-width: 100%;
+      max-height: 19rem;
+      margin: 0 auto;
       border: 1px solid var(--rule-soft);
       border-radius: 6px;
       background: var(--card);
@@ -376,6 +386,7 @@
       align-items: center;
       justify-content: center;
       aspect-ratio: 4 / 3;
+      max-height: 19rem;
       border: 1px dashed var(--rule);
       border-radius: 6px;
       background: var(--card);
