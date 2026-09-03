@@ -58,6 +58,8 @@ frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
 
+{: .fig-left}
+![Caught in the butter pot](/assets/posts/fun.png)
 <p align="center">"Can you please explain yourself?"</p>
 
 <p align="center">"Mother! Please listen to me, one of my cows got lost."</p>
