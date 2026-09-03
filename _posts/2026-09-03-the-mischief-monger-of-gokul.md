@@ -79,7 +79,6 @@ He then went on and on about when they left, who all joined him and began narrat
 
 <strong>Kanha</strong>: "Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"
 
-<p><a href="https://youtu.be/t3k9bH670-k?si=LgQbdNizO1O770o-&t=33407">Watch the original narration on YouTube</a></p>
 
 
 
