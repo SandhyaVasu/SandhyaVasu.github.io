@@ -70,7 +70,7 @@ stuck atop, clinging to a hanging pot of butter.
 
     <p>Latha: "What are you doing here?"</p>
 
-    <p>Kanha (full of innocence): "Mother! I thought this was my home, and so stepped in"</p>
+    <p>Kanha (full of innocence): "Mother! I thought this was my home, and so stepped in."</p>
 
     <p>Latha: "Alright, but what are you doing up there?"</p>
 
