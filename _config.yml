@@ -1,8 +1,9 @@
 title: Sandhya Vasudevan
-tagline: Computational systems biology — metabolic models, microbial communities,
-  and the code that simulates them.
-description: Computational systems biology — genome-scale metabolic modelling of
-  microbial communities, and notes on the code behind it.
+# Rendered as-is into the header, so the lab link lives here as markup.
+tagline: 'PhD student working in Prof Karthik Raman''s <a href="https://ramanlab.github.io/" target="_blank" rel="noopener">Computational Systems Biology lab</a>, IITM'
+# Plain text: this one goes into the meta description tag.
+description: PhD student in Prof Karthik Raman's Computational Systems Biology lab
+  at IIT Madras, working on genome-scale metabolic models of microbial communities.
 url: "https://sandhyavasu.github.io"
 github_username: SandhyaVasu
 

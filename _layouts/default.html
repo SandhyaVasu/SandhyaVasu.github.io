@@ -63,7 +63,19 @@
       margin-top: 0.4rem;
       color: var(--muted);
       font-size: 0.95rem;
+      max-width: 46rem;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    header p.tagline a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: var(--rule);
+      transition: text-decoration-color 0.2s;
+    }
+    header p.tagline a:hover { text-decoration-color: var(--accent); }
 
     nav {
       margin-top: 1.2rem;
@@ -309,6 +321,26 @@
     .status-ongoing { background: var(--maroon-soft); color: var(--maroon); }
     .status-done    { background: var(--bg-warm);     color: var(--muted); }
 
+    /* ── Project card entrance ── */
+    /* JS adds .reveal-init (the offscreen start state) and then .reveal-in as
+       each card scrolls into view. With JS off, neither class is applied and
+       the cards simply render in place. */
+    .reveal-init {
+      opacity: 0;
+      transform: translateX(2.5rem);
+    }
+
+    .reveal-in {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-init { opacity: 1; transform: none; }
+      .reveal-in   { transition: none; }
+    }
+
     /* ── Post page ── */
     /* Wraps the Markdown body of a single post. */
     .post-page {
@@ -489,6 +521,35 @@
       <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }} &nbsp;&middot;&nbsp; <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">github.com/{{ site.github_username }}</a></p>
     </div>
   </footer>
+
+<script>
+  // Slide each project card in from the right, one after another, as the
+  // Projects section comes into view.
+  (function () {
+    var cards = document.querySelectorAll('.projects-section .project-item');
+    if (!cards.length) return;
+
+    var reduced = window.matchMedia
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    // Only hide the cards once we know we can animate them back in.
+    for (var i = 0; i < cards.length; i++) cards[i].classList.add('reveal-init');
+
+    var observer = new IntersectionObserver(function (entries) {
+      var shown = 0;
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var card = entry.target;
+        window.setTimeout(function () { card.classList.add('reveal-in'); }, shown * 130);
+        shown++;
+        observer.unobserve(card);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    for (var j = 0; j < cards.length; j++) observer.observe(cards[j]);
+  })();
+</script>
 
 </body>
 </html>
