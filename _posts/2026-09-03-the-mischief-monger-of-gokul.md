@@ -46,7 +46,7 @@ come to know of it.
 
 
 {: .fig-left}
-![Caught in the butter pot](/assets/posts/butter_thieves.png)
+![Caught in the butter pot](/assets/posts/butter_thieves.webp)
 In the evening, when Kanha and his friends were frolicking on the streets,
 hunger pangs overcame them. Just then Kanha sighted the same house and
 whispered to his friends, "Friends, the lady of that house has secretly stored
@@ -58,8 +58,9 @@ frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
   
-{: .fig-right}
-![Caught in the butter pot](/assets/posts/fun.png)
+{: .fig-right .fig-flow}
+![Kanha caught clinging to the butter pot](/assets/posts/fun.webp)
+
 <strong>Kanha</strong>: "Welcome home, mother!"
 
 <strong>Latha</strong>: "Can you please explain yourself? What is your name?"

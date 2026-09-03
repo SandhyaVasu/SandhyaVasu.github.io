@@ -29,3 +29,18 @@ shorter and the text column narrower, so the two meet:
 (Centring the text against the picture is not possible here: the picture
 lives inside the paragraph, so a flex row would break the passage into a
 separate column at every *italic*.)
+
+If a picture should have a *run* of short paragraphs beside it (dialogue,
+say) rather than one passage, add `.fig-flow` and leave the picture in a
+block of its own — everything after it flows around until the space runs
+out:
+
+    {: .fig-right .fig-flow}
+    ![Kanha caught clinging to the butter pot](/assets/posts/fun.webp)
+
+    **Kanha**: "Welcome home, mother!"
+
+    **Latha**: "Can you please explain yourself?"
+
+This is the one case that wants a blank line after the picture. It does not
+contain its float, so leave a few paragraphs before the next picture.

@@ -673,6 +673,29 @@
     .post-body .fig-left  > img { float: left;  margin: 0.35rem 1.75rem 0.6rem 0; }
     .post-body .fig-right > img { float: right; margin: 0.35rem 0 0.6rem 1.75rem; }
 
+    /* Picture on its own, with everything AFTER it flowing around — for a run
+       of short paragraphs (dialogue) that should fill the space beside it,
+       rather than one passage:
+
+         {: .fig-right .fig-flow}
+         ![alt](/assets/posts/fun.webp)
+
+         **Kanha**: "Welcome home, mother!"
+
+         **Latha**: "Can you please explain yourself?"
+
+       Note the blank line after the picture here — this is the one case that
+       wants the picture in a block of its own. It does not contain its float,
+       so give it a few paragraphs of room before the next picture. */
+    .post-body .fig-flow {
+      display: block;
+      width: 45%;
+      margin-bottom: 1rem;
+    }
+    .post-body .fig-flow.fig-left  { float: left;  margin-right: 1.75rem; }
+    .post-body .fig-flow.fig-right { float: right; margin-left: 1.75rem; }
+    .post-body .fig-flow > img { float: none; width: 100%; margin: 0; }
+
     /* A short passage leaves the picture hanging below the last line. Rather
        than centre the text (impossible here — the picture lives inside the
        paragraph, so flex would break the passage at every *italic* into its
@@ -695,6 +718,13 @@
         float: none;
         width: 100%;
         margin: 0 0 1rem;
+      }
+      .post-body .fig-flow.fig-left,
+      .post-body .fig-flow.fig-right {
+        float: none;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
       }
     }
 
