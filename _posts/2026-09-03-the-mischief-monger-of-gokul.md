@@ -60,7 +60,6 @@ stuck atop, clinging to a hanging pot of butter.
   
 {: .fig-right}
 ![Caught in the butter pot](/assets/posts/fun.png)
-
 <strong>Kanha</strong>: "Welcome home, mother!"
 
 <strong>Latha</strong>: "Can you please explain yourself? What is your name?"
