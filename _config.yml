@@ -16,6 +16,8 @@ permalink: /:year/:month/:title/
 collections:
   projects:
     output: false
+  publications:
+    output: false
 
 defaults:
   - scope:

@@ -62,6 +62,32 @@ Each slide has space for an image on the right. Put the file in
 
 Until then the slide shows an "Image to be added" placeholder.
 
+## Adding a publication
+
+Add a Markdown file to `_publications/`:
+
+```markdown
+---
+title: Evaluating Metabolic Support in Pairwise Microbial Communities Using MetQuest
+authors: Pratyay Sengupta, Sandhya Vasudevan, Karthik Raman
+venue: Methods in Molecular Biology
+venue_short: Methods Mol Biol
+volume: 3006
+pages: 195-210
+year: 2025
+doi: 10.1007/978-1-0716-5080-6_9
+link: https://link.springer.com/protocol/10.1007/978-1-0716-5080-6_9
+image: metquest-cover.png
+order: 1
+---
+
+A two-line summary of the work.
+```
+
+Every field except `title` is optional and simply omitted from the card when
+blank — so a missing page range or year leaves a gap rather than showing
+something wrong. Covers go in `assets/publications/`.
+
 ## Editing the homepage and About text
 
 `index.md` holds the About section prose and the short note under the Projects
@@ -74,7 +100,9 @@ _config.yml            site title, tagline, and Jekyll settings
 index.md               homepage — About text, in Markdown
 _posts/                blog posts, one Markdown file each
 _projects/             projects, one Markdown file each
+_publications/         publications, one Markdown file each
 assets/projects/       project figures
+assets/publications/   publication covers
 _layouts/
   default.html         the page shell: styles, header, footer, page borders
   home.html            homepage structure

@@ -1,6 +1,7 @@
 ---
 layout: home
 projects_note: Simulation work, mostly — plus one game.
+pubs_note: Peer-reviewed work.
 intro_label: About this site
 intro_title: Metabolic models, microbial communities, and the code in between.
 intro_text: >-

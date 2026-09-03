@@ -109,6 +109,61 @@ layout: default
   </div>
 </section>
 
+<section class="pubs-section" id="publications">
+  <div class="container">
+    <h2 class="section-heading tight">Publications</h2>
+    <p class="projects-note">{{ page.pubs_note }}</p>
+
+    {% assign pubs = site.publications | sort: "order" %}
+    <div class="pub-grid">
+      {% for pub in pubs %}
+      <article class="pub-card">
+        <div class="pub-figure">
+          {% if pub.image %}
+            <img src="{{ '/assets/publications/' | append: pub.image | relative_url }}"
+                 alt="Cover for {{ pub.title }}" loading="lazy" />
+          {% else %}
+            <div class="figure-placeholder"><span>Cover to be added</span></div>
+          {% endif %}
+        </div>
+
+        <div class="pub-body">
+          <p class="pub-authors">
+            <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"/>
+              <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>
+            </svg>
+            {{ pub.authors }}
+          </p>
+
+          <h3 class="pub-title">
+            {% if pub.link %}
+              <a href="{{ pub.link }}" target="_blank" rel="noopener">{{ pub.title }}</a>
+            {% else %}{{ pub.title }}{% endif %}
+          </h3>
+
+          {{ pub.content | markdownify }}
+
+          <p class="pub-venue">
+            <svg class="pub-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 5.5A1.5 1.5 0 015.5 4H10a2 2 0 012 2v14a1.5 1.5 0 00-1.5-1.5h-5A1.5 1.5 0 014 17V5.5z"/>
+              <path d="M20 5.5A1.5 1.5 0 0018.5 4H14a2 2 0 00-2 2v14a1.5 1.5 0 011.5-1.5h5A1.5 1.5 0 0020 17V5.5z"/>
+            </svg>
+            <em>{{ pub.venue_short | default: pub.venue }}</em>{% if pub.year %} &middot; {{ pub.year }}{% endif %}
+          </p>
+
+          {% if pub.volume or pub.pages %}
+          <p class="pub-locator">
+            {% if pub.volume %}<strong>{{ pub.volume }}</strong>{% endif %}{% if pub.volume and pub.pages %}:{% endif %}{{ pub.pages }}
+          </p>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 <section class="about-strip" id="about">
   <div class="container">
     <h2>About</h2>
