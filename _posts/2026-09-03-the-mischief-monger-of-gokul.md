@@ -58,19 +58,24 @@ frightful stare! All the boys took to their heels, but for poor Kanha, who was
 stuck atop, clinging to a hanging pot of butter.
 
 
-{: .fig-left}
+{: .fig-right}
 ![Caught in the butter pot](/assets/posts/fun.png)
-<p align="center">"Can you please explain yourself?"</p>
 
-<p align="center">"Mother! Please listen to me, one of my cows got lost."</p>
+<div style="text-align: center;">
 
-<p align="center">"Go on"</p>
+<p>"Can you please explain yourself?"</p>
 
-<p align="center">"So I thought it came inside your beautiful house."</p>
+<p>"Mother! Please listen to me, one of my cows got lost."</p>
 
-<p align="center">"Okay, but what are you doing up there?"</p>
+<p>"Go on"</p>
 
-<p align="center">"Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
+<p>"So I thought it came inside your beautiful house."</p>
+
+<p>"Okay, but what are you doing up there?"</p>
+
+<p>"Mine was a white cow. As soon as I entered, I saw white things up here. So, I'm just checking if it is here. But no, the cow isn't here!"</p>
+
+</div>
 
 Saying so, Kanha swiftly leapt down and escaped through the window. Suddenly,
 Latha's mother-in-law entered the kitchen and was shaken to see its plight!
@@ -88,7 +93,7 @@ After a while, just to check if her plan was going smoothly, Latha came to
 inspect the kitchen door. Horror of horrors! It was wide ajar, and a loincloth
 was tied to the tongue of the bell!
 
-{: .fig-right}
+{: .fig-left}
 ![Caught in the butter pot](/assets/posts/stealing.webp)
 <br>
 As she peeped inside, she saw the beautiful scene of Kanha almost drenched in
@@ -100,13 +105,13 @@ house.
 "Aha! You will be caught red-handed, Kanha!" shouted Latha, also calling her
 mother-in-law. "Mother, please come to the kitchen immediately!"
 
-{: .fig-left}
+{: .fig-right}
 ![Caught in the butter pot](/assets/posts/redhanded.webp)
 <br>
 Kanha was startled by the sudden turn of events. He couldn't even respond as
 his mouth was full of butter! He quickly jumped up to his feet and, before
 Latha could realise, spat all the butter on her face and disappeared through
-the window!
+the back door!
 By the time a shocked Latha could rub her eyes off the butter, she saw an angry
 figure yelling with her hands on her hips.
 "Latha! It is you who has been eating all the butter, and you simply blame the
