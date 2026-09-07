@@ -75,8 +75,10 @@ The COMETS distribution ships as a compiled JAR file — a bundle of Java byteco
 
 The specific goal was to find where COMETS computed nutrient uptake rates and rewrite it to match Wagner's method. That meant understanding two things: what Wagner's algorithm actually does in mathematical terms, and what the existing COMETS code does — line by line, array by array — so I could make a change I could defend. I explained my case to Claude, and it started making the changes. 
 
+{: .fig-right}
+![work](/assets/posts/work.png)
 After it was done, I would start at the beginning and begin asking questions. Why did you make this change? What does this line do? What is this variable? What is the Wagner counterpart? Claude would explain. I would not let go of it till I was fully convinced.
-
+<br>
 This part took weeks. But something unexpected happened along the way: I started understanding Java! Not fluently — I would not go looking for opportunities to write it — but well enough to read it carefully, follow the logic, and catch when something seemed wrong.
 
 And things were wrong.
