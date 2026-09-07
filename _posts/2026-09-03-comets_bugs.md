@@ -176,16 +176,6 @@ I found this empirically: in a pair of species where one model had an unconstrai
 
 The Wagner implementation was the primary mission, and it came together over the course of that month. All three fixes above — the index bug, the floating-point accumulation order, the clamp — were applied there first.
 
-But something else fell out in the process.
-
-To evaluate whether Wagner's partitioning actually *changes* the science, I needed a clean comparison arm: a version of COMETS running the original stock uptake logic, but with the same bugs fixed and nothing else altered. If I compared Wagner against unfixed stock, I couldn't tell whether any differences came from the partitioning algorithm or from the implementation bugs. The comparison would be meaningless.
-
-So the stock-fixed build was not planned — it emerged naturally from the Wagner work. Once I had identified and fixed the index bug and both order-dependence problems in the Wagner build, the same fixes applied directly to the stock code. The result is two verified builds that differ in exactly one thing: whether nutrient uptake uses Wagner's community-denominator partitioning or COMETS's original per-species logic. Every other line of code is identical.
-
-**Why the two approaches differ scientifically:** In stock COMETS, each species sees the entire nutrient pool as if it were alone in the cell. Summed across a community, intended uptake can and does exceed what is physically present — the re-optimisation loop is supposed to catch this after the fact, but as we've seen, it has its own problems. In Wagner's approach, nutrients are partitioned *before* any FBA runs. Each species' uptake bound is computed using the total community biomass of all species with an exchange reaction for that metabolite as the denominator, so each species receives a share proportional to its own biomass. Over-consumption becomes arithmetically impossible rather than something to be corrected. For a competitive chemostat study, this is the scientifically cleaner foundation.
-
-The Wagner build is the one I'll be running my simulations on. The stock-fixed build is the control.
-
 ---
 
 ## Verification
