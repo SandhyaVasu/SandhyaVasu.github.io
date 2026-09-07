@@ -2,13 +2,15 @@
 title: When the Order You Add Species Changes Your Science
 date: 2026-09-07
 category: from-the-lab
-tags: [COMETS, ]
+tags: [COMETS, floating point]
 summary: A year of chasing bugs in COMETS — and what they taught me about floating-point arithmetic, science, and perseverance 
 ---
+{: .fig-right}
+![intro](/assets/posts/intro.png)
 
-It started with something that should not have been possible.
+This tale started with something that should not have been possible.
 
-I was working on a course project in computational systems biology — a relatively simple simulation of three microorganisms, trying to model butyrate production in a community. The goal was straightforward: run dynamic flux balance analysis, see if the organisms grow, and note what they produce. I was using COMETS, a well-regarded Java-based platform with a Python wrapper, built by the Segre Lab at Boston University. It had a good reputation. I expected to spend a few hours on setup and then get to the biology.
+I was working on a course project in computational systems biology — a relatively simple simulation of three microorganisms, trying to model butyrate production in a community. The goal was straightforward: run dynamic flux balance analysis, see if the organisms grow, and note what they produce. I was using COMETS, a well-regarded Java-based platform with a Python wrapper, built by the Segrè Lab at Boston University. It had a good reputation. I expected to spend a few hours on setup and then get to the biology.
 
 Instead, I found something that made me sit and stare at my screen for a long time.
 
@@ -51,10 +53,13 @@ I could not find clarity in the documentation. I went back and forth from the CO
 But I was wrong. COMETS expects molar (M). I would not discover this until March 2026. In the meantime, I had built a set of simulations on a foundation that was off by a factor of a thousand.
 
 ---
-
+![mess](/assets/posts/mess.png)
 ## March 2026: Complete Chaos
 
 In March 2026, I had realised my Km units were wrong, corrected them, but was now stuck with the `ArrayIndexOutOfBoundsException`. Was it because the Km was too low that nutrients got depleted? I had no clue. The order dependence issue from a year ago had never been explained. At times, the simulations would keep running forever.
+
+{: .fig-left}
+![mess](/assets/posts/comparision.png)
 
 The tool felt broken in ways I couldn't diagnose because the relevant logic was written in Java, with which I was not conversant. My advisor had earlier pointed me to a paper by Andreas Wagner that described a resource-partitioning approach to dFBA — a fundamentally different way of handling nutrient uptake in a community. In COMETS, each species computes how much it can consume as if it were alone in the environment, and over-consumption is corrected after the FBA uptake is done. Wagner's approach partitions nutrients *before* any FBA runs: each species gets a share proportional to its biomass relative to the whole community. I thought this could be causing the issues I was facing. 
 
@@ -70,7 +75,7 @@ Then began Project Java: an adventurous expedition!
 
 The COMETS distribution ships as a compiled JAR file — a bundle of Java bytecode that needs to be decompiled to be read. First up was an extensive hunt to identify the file that contained the dFBA logic. It turned out to be: `FBACell.java`, about a thousand lines long. 
 
-The specific goal was to find where COMETS computed nutrient uptake rates and rewrite it to match Wagner's method. That meant understanding two things: what Wagner's algorithm actually does in mathematical terms, and what the existing COMETS code does — line by line, array by array — so I could make a change I could defend. I explained my case to Cluade, and it started making the changes. 
+The specific goal was to find where COMETS computed nutrient uptake rates and rewrite it to match Wagner's method. That meant understanding two things: what Wagner's algorithm actually does in mathematical terms, and what the existing COMETS code does — line by line, array by array — so I could make a change I could defend. I explained my case to Claude, and it started making the changes. 
 
 After it was done, I would start at the beginning and begin asking questions. Why did you make this change? What does this line do? What is this variable? What is the Wagner counterpart? Claude would explain. I would not let go of it till I was fully convinced.
 
@@ -80,9 +85,9 @@ And things were wrong.
 
 ---
 
-## Attacking the `ArrayIndexOutOfBoundsException`— Finally!
+## Attacking the `ArrayIndexOutOfBoundsException` — Finally!
 
-This one is more serious, and it requires understanding something about how COMETS represents metabolites internally.
+This was the long-standing issue, and it requires understanding something about how COMETS represents metabolites internally.
 
 COMETS maintains two different numbering systems or **index spaces** for metabolites:
 
@@ -159,7 +164,7 @@ Floating-point numbers are stored with finite precision — roughly 16 significa
 
 Mathematically: `(A + B) + C = A + (B + C)`. But in floating-point arithmetic: **sometimes not**. The difference is tiny — typically the last bit of the 64-bit representation, around `1e-16` relative — but it is real.
 
-COMETS accumulates quantities across models by looping through them in the order they appear in the layout array. And models appear in layout-array order because they were added in that order. So the order you add species determines the order of accumulation — and for communities of two or more species, different accumulation orders give different results.
+COMETS accumulates quantities across models by looping through them in the order they appear in the layout array. And models appear in layout-array order because they were added in that order. So the order you add species determines the order of accumulation — and for communities of two or more species, different accumulation orders give different results. (Note, even in two species (A, B) in the media update step, there are three terms: media conc., effect of A, effect of B — causing non-associative arithmetic).
 
 For my simulations, across the time steps, this played a key role in deciding how the solver steered the system of linear equations and landed in an optimum.
 
@@ -174,7 +179,7 @@ I found this empirically: in a pair of species where one model had an unconstrai
 
 ## Two working versions
 
-Although the Wagner implementation was the primary mission, with all three fixes above — the index bug, the floating-point accumulation order, the clamp — resulted in two working versions of COMETS: original and Wagner variant — both fully functional and totally order independent. 
+The Wagner implementation was the primary mission, but the fixes above — the index bug, the refresh sorting, the clamp, the floating-point accumulation order — applied equally to the original uptake logic. So I ended up with two working versions of COMETS: original and Wagner variant, both fully functional and completely order-independent.
 
 ---
 
@@ -186,10 +191,10 @@ I ran a permutation sweep: 69 communities of two to seven species, 1,960 simulat
 
 ## Reflections
 
-Overall, this was an intense exercise that helped me cultivate patience and perseverance. The process would be so addictive that at times, I would helplessly be up late at night wrangling with the problem. Many times, I would give up hope and feel totally lost. Further, I am sure I would have had many subtler learnings from this. I thank my advisor, Prof. Karthik, whose one line, "Fix the Java code", inspired the fruition of this endeavour. 
+Overall, this was an intense exercise that helped me cultivate patience and perseverance. The process would be so addictive that at times, I would helplessly be up late at night wrangling with the problem. Many times, I would give up hope and feel totally lost. Further, I am sure I would have had many subtler learnings from this. My sincere gratitude to my advisor, Prof. Karthik, whose one line, "Fix the Java code", kept me ignited throughout this endeavour. 
 
 
 
 *Sandhya Vasu — September 2026*
 
-*COMETS: [segrelab.org/comets](https://www.segrelab.org/comets/) | Wagner et al. reference implementation: [Wagner's paper][https://pmc.ncbi.nlm.nih.gov/articles/PMC9542400/]*
+*COMETS: [segrelab.org/comets](https://www.segrelab.org/comets/) | Wagner reference implementation: [Wagner's paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC9542400/)*
