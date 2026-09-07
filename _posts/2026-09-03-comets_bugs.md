@@ -61,7 +61,7 @@ In March 2026, I had realised my Km units were wrong, corrected them, but was no
 ![mess](/assets/posts/comparision.png)
 The tool felt broken in ways I couldn't diagnose because the relevant logic was written in Java, with which I was not conversant. My advisor had earlier pointed me to a paper by Andreas Wagner that described a resource-partitioning approach to dFBA — a fundamentally different way of handling nutrient uptake in a community. In COMETS, each species computes how much it can consume as if it were alone in the environment, and over-consumption is corrected after the FBA uptake is done. Wagner's approach partitions nutrients *before* any FBA runs: each species gets a share proportional to its biomass relative to the whole community. I thought this could be causing the issues I was facing. 
 
-I went to my advisor. I told him I couldn't trust the results and I was considering switching to a different dFBA platform entirely. He said, "Why don't you fix the Java source script?" 
+I went to my advisor. I told him I couldn't trust the results and I was considering switching to a different dFBA platform entirely. He said, **"Why don't you fix the Java source script?"**
 
 I do not know Java. I had never decompiled a JAR file. The idea of going into the source code of a scientific computing tool and editing it felt impossible for me! But the way he said it made it seem possible. He further asked me to take Claude's help for the same. 
 
@@ -191,7 +191,7 @@ I ran a permutation sweep: 69 communities of two to seven species, 1,960 simulat
 
 {: .fig-right}
 ![intro](/assets/posts/victory.png)
-Overall, this was an intense exercise that helped me cultivate patience and perseverance. The process would be so addictive that at times, I would helplessly be up late at night wrangling with the problem. Many times, I would give up hope and feel totally lost. Further, I am sure I would have had many subtler learnings from this. My sincere gratitude to my advisor, Prof. Karthik, whose one line, "Fix the Java code", kept me ignited throughout this endeavour. 
+Overall, this was an intense exercise that helped me cultivate patience and perseverance. The process would be so addictive that at times, I would helplessly be up late at night wrangling with the problem. Many times, I would give up hope and feel totally lost. Further, I am sure I would have had many subtler learnings from this. My sincere gratitude to my advisor, Prof. Karthik, whose one line, **"Why don't you fix the Java source script?"**, kept me ignited throughout this endeavour. 
 
 
 
