@@ -68,7 +68,7 @@ Then began Project Java: an adventurous expedition!
 
 ## Project Java
 
-The COMETS distribution ships as a compiled JAR file — a bundle of Java bytecode that needs to be decompiled to be read. First up was an extensive hunt to identify the file that contained the dFBA logic. It turned out to be: `FBACell.java`, about a thousand lines long.
+The COMETS distribution ships as a compiled JAR file — a bundle of Java bytecode that needs to be decompiled to be read. First up was an extensive hunt to identify the file that contained the dFBA logic. It turned out to be: `FBACell.java`, about a thousand lines long. 
 
 The specific goal was to find where COMETS computed nutrient uptake rates and rewrite it to match Wagner's method. That meant understanding two things: what Wagner's algorithm actually does in mathematical terms, and what the existing COMETS code does — line by line, array by array — so I could make a change I could defend. I explained my case to Cluade, and it started making the changes. 
 
@@ -161,68 +161,31 @@ Mathematically: `(A + B) + C = A + (B + C)`. But in floating-point arithmetic: *
 
 COMETS accumulates quantities across models by looping through them in the order they appear in the layout array. And models appear in layout-array order because they were added in that order. So the order you add species determines the order of accumulation — and for communities of two or more species, different accumulation orders give different results.
 
-For my simulations, across the time steps, this played a key role in deciding how the solver steered the system of linear equations and landed in an optima.
+For my simulations, across the time steps, this played a key role in deciding how the solver steered the system of linear equations and landed in an optimum.
 
 Many metabolic models — especially AGORA2 models, which are common in human gut microbiome research — are **degenerate**: they have multiple optimal solutions with identical objective values. The LP solver is free to return any of them. When one run and another differ by a single last bit in a constraint coefficient, the solver may pick a different vertex on the same flat optimal face. Same growth rate, different flux distribution. Different secretion profile. Different nutrient environment next step. One timestep later, the trajectories have diverged.
 
 I found this empirically: in a pair of species where one model had an unconstrained demand reaction for sodium (`DM_NA1`, an ATP-neutral loop), a last-bit difference in the medium vector was enough to switch that loop on or off — at zero cost to growth, but with downstream effects on the sodium available to the other species. The two orders agreed to full precision through cycle 2, diverged at cycle 3, and were on clearly different paths by cycle 5.
 
-**The fix :** Sort models by file name before performing any addition — a key that doesn't depend on arrival order — and walk that fixed order during summation. The sort is computed once at the top of the timestep, before any biomass values are mutated, and reused everywhere.
+**The fix:** Sort models by file name before performing any addition — a key that doesn't depend on arrival order — and walk that fixed order during summation. The sort is computed once at the top of the timestep, before any biomass values are mutated, and reused everywhere.
 
 
 ---
 
-## Two Builds, Not One
+## Two working versions
 
-The Wagner implementation was the primary mission, and it came together over the course of that month. All three fixes above — the index bug, the floating-point accumulation order, the clamp — were applied there first.
-
----
-
-## Verification
-
-I did not want to take any of this on faith. For each change, I traced the bytecode of the original JAR to confirm the intended semantics of what was being changed. I decompiled the output JARs and read them back to confirm the changes were actually present in the compiled code, not just the source. I ran a permutation sweep: 69 communities of two to seven species, 1,960 simulations, 1,891 comparisons between different arrival orders.
-
-In the unfixed build, 449 of 453 tested pairs showed divergence. Thirteen communities had flux differences above 1 mmol/gDW/h. The largest biomass spread was around 5 × 10⁻⁵ gDW.
-
-In the fixed build: divergence was exactly zero in every comparison, across biomass, medium composition, and per-reaction fluxes, at every cycle.
+Although the Wagner implementation was the primary mission, with all three fixes above — the index bug, the floating-point accumulation order, the clamp — resulted in two working versions of COMETS: original and Wagner variant — both fully functional and totally order independent. 
 
 ---
 
-## What I Learned
+## Final verdict
 
-### About the science
-
-Dynamic FBA on degenerate LP models is fragile. Degeneracy is not a pathological edge case — it is the normal condition of well-constrained metabolic networks. Many reactions can be swapped freely without changing the growth rate. When you perturb a constraint coefficient by a single bit, you can land on a different equivalent optimum with a different flux distribution. If your tool has any arithmetic that changes with model arrival order, that arithmetic will manifest in your results. This has implications for reproducibility that go beyond COMETS.
-
-### About the code
-
-The gap between "the code runs without crashing" and "the code computes what we think it computes" is real and not always obvious. The index space bug — silently reading the flux of an unrelated metabolite — is the kind of bug that produces results that look plausible, pass informal sanity checks, and are simply wrong. You need to understand what the code is doing, not just whether it completes.
-
-### About working with AI
-
-I used Claude extensively throughout this process, and I want to say something honest about how that worked. The process was collaborative in a specific way: Claude would explain, I would verify. Claude would propose a change, I would trace through why the change was semantically equivalent to what the bytecode intended. I would not have been able to do this at anything like the same speed without AI assistance. I also would not have trusted the result if I had not verified each piece myself. The combination — AI for explanation and drafting, human judgment for verification — was more productive than either alone would have been. I also ended up learning a substantial amount of Java, which I did not anticipate.
-
-### About open source
-
-The COMETS team has built something genuinely good. The ability to run spatial, multi-species dFBA simulations with Python-accessible control, grounded in real metabolic networks — there is nothing else quite like it for the kind of work I do. The bugs I found are not evidence of carelessness; they are evidence of the difficulty of scientific software, the complexity of two index spaces that interact in subtle ways, and the genuinely non-obvious properties of floating-point arithmetic.
-
-I did not migrate to another tool. I preferred to understand this one.
+I ran a permutation sweep: 69 communities of two to seven species, 1,960 simulations, 1,891 comparisons between different arrival orders. Divergence was exactly zero in every comparison, across biomass, medium composition, and per-reaction fluxes, at every cycle.
 
 ---
 
-## A Note on the Journey's Shape
 
-Looking back, this took roughly eighteen months of on-and-off engagement: initial discovery in March 2025, a confusing detour through unit conventions in December 2025, the collapse in March 2026 when everything seemed broken at once, and then a month of focused work from late July to late August 2026 that produced two verified builds — the Wagner implementation I originally set out to build, and a clean stock-COMETS build that came along for free.
 
-The non-linear shape of it is, I think, typical of this kind of work. You notice something odd, you don't have the tools to understand it yet, you move on. You come back with more knowledge. You get the wrong answer for a while. Eventually you have enough context that the pieces fit together.
-
-I don't think I would have found the bugs if I hadn't set out to implement Wagner. I don't think I would have understood the crashes without understanding the index spaces. I don't think I would have understood the order-dependence without understanding how LP degeneracy translates a last-bit perturbation into a macroscopic difference. Each piece required the ones before it.
-
-If you're using COMETS for multi-species simulations — particularly priority-effect studies, where you're explicitly varying the order of model arrival — I hope this is useful. The fixed builds, along with the full change documentation, are part of this project's repository.
-
-And if you're staring at a decompiled Java file wondering where to start: it gets easier. Ask questions, verify answers, and don't accept any change you don't understand. The code will eventually tell you what it's doing.
-
----
 
 *Sandhya Vasu — September 2026*
 
