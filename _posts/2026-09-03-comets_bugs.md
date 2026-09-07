@@ -60,7 +60,7 @@ The tool felt broken in ways I couldn't diagnose because the relevant logic was 
 
 I went to my advisor. I told him I couldn't trust the results and I was considering switching to a different dFBA platform entirely. He said, "Why don't you fix the Java source script?" 
 
-I do not know Java. I had never decompiled a JAR file. The idea of going into the source code of a scientific computing tool and editing it felt impossible for me! But the way he said it made it seem possible. He further asked me take Claude's help for the same. 
+I do not know Java. I had never decompiled a JAR file. The idea of going into the source code of a scientific computing tool and editing it felt impossible for me! But the way he said it made it seem possible. He further asked me to take Claude's help for the same. 
 
 Then began Project Java: an adventurous expedition!
 
@@ -72,7 +72,7 @@ The COMETS distribution ships as a compiled JAR file — a bundle of Java byteco
 
 The specific goal was to find where COMETS computed nutrient uptake rates and rewrite it to match Wagner's method. That meant understanding two things: what Wagner's algorithm actually does in mathematical terms, and what the existing COMETS code does — line by line, array by array — so I could make a change I could defend. I explained my case to Cluade, and it started making the changes. 
 
-After it was done, I would start at the beginning and began asking questions. Why did you make this change? What does this line do? What is this variable? What is the Wagner counterpart? Claude would explain. I would not let go of it till I was fully convinced.
+After it was done, I would start at the beginning and begin asking questions. Why did you make this change? What does this line do? What is this variable? What is the Wagner counterpart? Claude would explain. I would not let go of it till I was fully convinced.
 
 This part took weeks. But something unexpected happened along the way: I started understanding Java! Not fluently — I would not go looking for opportunities to write it — but well enough to read it carefully, follow the logic, and catch when something seemed wrong.
 
@@ -80,7 +80,7 @@ And things were wrong.
 
 ---
 
-## Attackign the `ArrayIndexOutOfBoundsException`— Finally!
+## Attacking the `ArrayIndexOutOfBoundsException`— Finally!
 
 This one is more serious, and it requires understanding something about how COMETS represents metabolites internally.
 
@@ -184,9 +184,12 @@ I ran a permutation sweep: 69 communities of two to seven species, 1,960 simulat
 
 ---
 
+## Reflections
+
+Overall, this was an intense exercise that helped me cultivate patience and perseverance. The process would be so addictive that at times, I would helplessly be up late at night wrangling with the problem. Many times, I would give up hope and feel totally lost. Further, I am sure I would have had many subtler learnings from this. I thank my advisor, Prof. Karthik, whose one line, "Fix the Java code", inspired the fruition of this endeavour. 
 
 
 
 *Sandhya Vasu — September 2026*
 
-*COMETS: [segrelab.org/comets](https://www.segrelab.org/comets/) | Wagner et al. reference implementation: metfuncs_aw_pub.py*
+*COMETS: [segrelab.org/comets](https://www.segrelab.org/comets/) | Wagner et al. reference implementation: [Wagner's paper][https://pmc.ncbi.nlm.nih.gov/articles/PMC9542400/]*
