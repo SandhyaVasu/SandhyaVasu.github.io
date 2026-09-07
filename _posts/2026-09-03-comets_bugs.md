@@ -1,7 +1,9 @@
-# When the Order You Add Species Changes Your Science
-
-### A year of chasing bugs in COMETS — and what they taught me about floating-point arithmetic, open-source science, and why I love a tool enough to fix it myself
-
+---
+title: When the Order You Add Species Changes Your Science
+date: 2026-09-07
+category: from-the-lab
+tags: [COMETS, ]
+summary: A year of chasing bugs in COMETS — and what they taught me about floating-point arithmetic, open-source science, and why I love a tool enough to fix it myself
 ---
 
 It started with something that should not have been possible.
