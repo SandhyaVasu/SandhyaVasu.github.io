@@ -8,7 +8,7 @@ summary: A year of chasing bugs in COMETS — and what they taught me about floa
 
 It started with something that should not have been possible.
 
-I was working on a course project in computational systems biology — a relatively simple simulation of three microorganisms, trying to model butyrate production in a community. The goal was straightforward: run dynamic flux balance analysis, see if the organisms grow, see what they produce. I was using COMETS, a well-regarded Java-based platform with a Python wrapper, built by the Segre Lab at Boston University. It had a good reputation. I expected to spend a few hours on setup and then get to the biology.
+I was working on a course project in computational systems biology — a relatively simple simulation of three microorganisms, trying to model butyrate production in a community. The goal was straightforward: run dynamic flux balance analysis, see if the organisms grow, and note what they produce. I was using COMETS, a well-regarded Java-based platform with a Python wrapper, built by the Segre Lab at Boston University. It had a good reputation. I expected to spend a few hours on setup and then get to the biology.
 
 Instead, I found something that made me sit and stare at my screen for a long time.
 
@@ -22,7 +22,7 @@ This is the story of what I found when I looked into why.
 
 ## A Quick Word on What COMETS Does
 
-Before I get into the debugging, let me briefly explain what this tool is and why it matters — because it will make the bugs more meaningful.
+Before I get into the debugging, let me briefly explain what this tool is and why it matters — because it will make this narrative more meaningful.
 
 COMETS (Computation of Microbial Ecosystems in Time and Space) is an excellent platform for simulating microbial communities in space and time. It uses **dynamic flux balance analysis (dFBA)** — a method that takes the constraint-based metabolic models we build for individual organisms and runs them forward through time in a shared environment. Every time step, each organism "decides" what to consume and produce based on what nutrients are available, its own metabolic network, and whatever bounds you've set. The environment updates. You repeat.
 
@@ -32,17 +32,17 @@ This is powerful because you can model how community composition evolves, what n
 
 ## March 2025: Something Is Very Wrong
 
-The primary problem — the one that stopped me cold — was an `ArrayIndexOutOfBoundsException`. Java's way of telling you that something tried to read a memory location that doesn't exist. I raised it on the COMETS GitHub repository. By adjusting some parameters I managed to get past it, which at the time felt like a solution: the crash went away, the project could proceed, and I had a deadline.
+The primary problem — the one that stopped me cold — was an `ArrayIndexOutOfBoundsException`. Java's way of telling you that something tried to read a memory location that doesn't exist. I raised it on the COMETS GitHub repository. By adjusting some parameters, I managed to get past it, which at the time felt like a solution: the crash went away, the project could proceed, and I had a deadline.
 
-I did notice, in the course of those runs, that different model arrival orders were producing different trajectories. But I didn't investigate it or report it — I noted it, filed it somewhere in the back of my head, and submitted the project.
+I did notice, in the course of those runs, that different model arrival orders were producing different growth trajectories. But I didn't investigate it or report it — I noted it, filed it somewhere in the back of my head, and submitted the project report and immersed myself in the next semester of courses.
 
-The order-dependence issue came back to me in September 2025, when I raised it as a separate GitHub issue. By then I had enough distance from the project to describe what I was seeing clearly. The response was helpful but couldn't pin down a cause, and I didn't yet have the tools to look deeper.
+In September 2025, I revisited my COMETS code and again encountered the order-dependence issue. This time, I raised it as a separate GitHub issue. Their response was quite helpful but couldn't pin down a cause, and I didn't dig deeper into the issue.
 
 ---
 
 ## December 2025: The Units Rabbit Hole
 
-I came back to COMETS in December, determined to get things working properly. This time, the problem wasn't just the order bug or the `ArrayIndexOutOfBoundsException` error — it was the parameters.
+I came back to COMETS in December, determined to get things working properly. This time, the problem wasn't just the order bug or the `ArrayIndexOutOfBoundsException` error — it was the parameters. Was I setting it correctly?
 
 COMETS uses Michaelis-Menten kinetics to model nutrient uptake. You supply a `Km` value — the half-saturation constant, the nutrient concentration at which the uptake rate is half its maximum. But what **units** does COMETS expect for `Km`?
 
@@ -54,45 +54,37 @@ But I was wrong. COMETS expects molar (M). I would not discover this until March
 
 ## March 2026: Complete Chaos
 
-By March 2026, I had realised my Km units were wrong, corrected them, but was not stuck with the `ArrayIndexOutOfBoundsException`. The order-dependence from a year ago had never been explained. The re-optimisation loop — a mechanism inside COMETS that's supposed to prevent over-consumption of nutrients — would occasionally hang indefinitely.
+In March 2026, I had realised my Km units were wrong, corrected them, but was now stuck with the `ArrayIndexOutOfBoundsException`. Was it because the Km was too low that nutrients got depleted? I had no clue. The order dependence issue from a year ago had never been explained. At times, the simulations would keep running forever.
 
-The tool felt broken in ways I couldn't diagnose because the relevant logic was inside Java script I hadn't read.
+The tool felt broken in ways I couldn't diagnose because the relevant logic was written in Java, with which I was not conversant. My advisor had earlier pointed me to a paper by Andreas Wagner that described a resource-partitioning approach to dFBA — a fundamentally different way of handling nutrient uptake in a community. In COMETS, each species computes how much it can consume as if it were alone in the environment, and over-consumption is corrected after the FBA uptake is done. Wagner's approach partitions nutrients *before* any FBA runs: each species gets a share proportional to its biomass relative to the whole community. I thought this could be causing the issues I was facing. 
 
-I went to my advisor. I told him I couldn't trust the results and I was considering switching to a different dFBA platform entirely.
+I went to my advisor. I told him I couldn't trust the results and I was considering switching to a different dFBA platform entirely. He said, "Why don't you fix the Java source script?" 
 
-He had a different idea. He had earlier pointed me to a paper by Andreas Wagner that described a resource-partitioning approach to dFBA — a fundamentally different way of handling nutrient uptake in a community. In stock COMETS, each species computes how much it can consume as if it were alone in the cell, and over-consumption is corrected after the fact. Wagner's approach partitions nutrients *before* any FBA runs: each species gets a share proportional to its biomass relative to the whole community. My advisor thought this was probably the root of the problem, and his suggestion was direct: go into the Java source and rewrite the uptake logic to match Wagner.
+I do not know Java. I had never decompiled a JAR file. The idea of going into the source code of a scientific computing tool and editing it felt impossible for me! But the way he said it made it seem possible. He further asked me take Claude's help for the same. 
 
-I want to be honest about what I felt when he said that. I do not know Java. I had never decompiled a JAR file. The idea of going into the source code of a scientific computing tool and editing it felt like a thing other people did — people who were primarily software engineers, not biology students with a Python habit.
-
-He said: use Claude.
-
-So I did.
+Then began Project Java: an adventurous expedition!
 
 ---
 
-## End of May 2026: Into the Source Code
+## Project Java
 
-The COMETS distribution ships as a compiled JAR file — a bundle of Java bytecode. To see the source, you have to **decompile** it: run a tool that reads the bytecode and reconstructs (approximately) the Java it came from. The result isn't always perfect — decompilers fill in syntax, and sometimes they get it slightly wrong — but it's readable.
+The COMETS distribution ships as a compiled JAR file — a bundle of Java bytecode that needs to be decompiled to be read. First up was an extensive hunt to identify the file that contained the dFBA logic. It turned out to be: `FBACell.java`, about a thousand lines long.
 
-The file I needed was `FBACell.java`. It contains the `run()` method — the function that executes one timestep of the dFBA simulation for a single grid cell. Every decision about nutrient uptake, every call to the linear programming solver, every update to biomass and medium concentrations — it's in there. It's also about a thousand lines long.
+The specific goal was to find where COMETS computed nutrient uptake rates and rewrite it to match Wagner's method. That meant understanding two things: what Wagner's algorithm actually does in mathematical terms, and what the existing COMETS code does — line by line, array by array — so I could make a change I could defend. I explained my case to Cluade, and it started making the changes. 
 
-The specific goal was to find where COMETS computed nutrient uptake rates and rewrite it to match Wagner's method. That meant understanding two things: what Wagner's algorithm actually does in mathematical terms, and what the existing COMETS code does — line by line, array by array — so I could make a change I could defend.
+After it was done, I would start at the beginning and began asking questions. Why did you make this change? What does this line do? What is this variable? What is the Wagner counterpart? Claude would explain. I would not let go of it till I was fully convinced.
 
-I started at the beginning and started asking questions. What does this variable mean? What does this line do? What is this index counting? Why is this array this length?
-
-Claude would explain. I would look at the original code and ask: are you sure? Can you trace this back to where the array is defined? What happens if this index goes out of bounds?
-
-This part took weeks, off and on. But something unexpected happened: I started to understand Java. Not fluently — I would not go looking for opportunities to write it — but well enough to read it carefully, follow the logic, and catch when something seemed wrong.
+This part took weeks. But something unexpected happened along the way: I started understanding Java! Not fluently — I would not go looking for opportunities to write it — but well enough to read it carefully, follow the logic, and catch when something seemed wrong.
 
 And things were wrong.
 
 ---
 
-## A Silent Wrong Answer: The Index Space Problem
+## Attackign the `ArrayIndexOutOfBoundsException`— Finally!
 
 This one is more serious, and it requires understanding something about how COMETS represents metabolites internally.
 
-COMETS maintains two different numbering systems for metabolites — what the documentation calls **index spaces**:
+COMETS maintains two different numbering systems or **index spaces** for metabolites:
 
 | Space | What it numbers | Typical size |
 |---|---|---|
@@ -128,13 +120,36 @@ int kIndexInModel = ArrayUtils.indexOf(modelMediaIndexes, k);
 double newUptake = thisCellMedia[k] * (this.deltaMedia[l2][kIndexInModel] / totUptake);
 ```
 
+## A Silent Wrong Answer: A Sorting Bug
+Now, another discovery was that the metabolites in the environment and the dilution rates were sorted alphabetically upon user input. However, the refresh rates did not get sorted, resulting in refresh rates landing on the wrong metabolites. This was addressed by sorting the metabolites in my simulation script. 
+
 ---
 
-## The Deeper Problem: Order Dependence
+### The Clamp That Creates or Destroys Mass
 
-The index bug, once fixed, meant the tool ran without crashing. But it was not the source of the strange result I had found back in March 2025.
+When COMETS updates the nutrient medium after all models have run, it calls `changeModelMedia()` once per model. That function does two things:
 
-That one was more subtle, and it touched something fundamental about how computers do arithmetic.
+```java
+media[k] += delta;                     // add this model's consumption/secretion
+if (media[k] < 0) media[k] = 0;       // clamp to zero if negative
+```
+
+This clamp — sensible in isolation (removes floating point negative noise) — becomes pathological when applied sequentially across models. Consider a simple example: a metabolite at 5 mmol, with model A consuming 8 mmol and model B secreting 4 mmol.
+
+| Processing order | Result |
+|---|---|
+| A first, then B | `5 − 8 = −3` → clamp → `0`, then `0 + 4 = **4 mmol**` |
+| B first, then A | `5 + 4 = 9`, then `9 − 8 = **1 mmol**` |
+
+The final medium concentration is 4 in one order and 1 in the other. Three millimoles appeared from nowhere in the first case. This is not floating-point noise — this is a straightforward violation of mass conservation, and it depends entirely on which model gets processed first.
+
+**The fix:** Before any call to `changeModelMedia`, combine all models' deltas for each metabolite into a single net change, and then pass it to the clamp. Mass is conserved.
+
+These issues, once fixed, meant the tool ran without crashing. At least now, will the order dependency vanish? I was even using pFBA all along. With all this in place, the magnitude of difference between alternate orders reduced but did not disappear.
+
+## The power of floating point arithmetic!
+
+This one was more subtle, and it touched something fundamental about how computers do arithmetic.
 
 ### Why 1 + 2 + 3 ≠ 3 + 2 + 1 (sometimes)
 
@@ -144,37 +159,16 @@ Floating-point numbers are stored with finite precision — roughly 16 significa
 
 Mathematically: `(A + B) + C = A + (B + C)`. But in floating-point arithmetic: **sometimes not**. The difference is tiny — typically the last bit of the 64-bit representation, around `1e-16` relative — but it is real.
 
-COMETS accumulates quantities across models by looping through them in the order they appear in the layout array. And models appear in layout-array order because they were added in that order. So the order you add species determines the order of accumulation — and for communities of three or more species, different accumulation orders give different results.
+COMETS accumulates quantities across models by looping through them in the order they appear in the layout array. And models appear in layout-array order because they were added in that order. So the order you add species determines the order of accumulation — and for communities of two or more species, different accumulation orders give different results.
 
-For most simulations this last-bit difference doesn't matter. For my simulations, it did.
+For my simulations, across the time steps, this played a key role in deciding how the solver steered the system of linear equations and landed in an optima.
 
-The reason comes down to a property of the linear programs being solved. Many metabolic models — especially AGORA2 models, which are common in human gut microbiome research — are **degenerate**: they have multiple optimal solutions with identical objective values. The LP solver is free to return any of them. When one run and another differ by a single last bit in a constraint coefficient, the solver may pick a different vertex on the same flat optimal face. Same growth rate, different flux distribution. Different secretion profile. Different nutrient environment next step. One timestep later, the trajectories have diverged.
+Many metabolic models — especially AGORA2 models, which are common in human gut microbiome research — are **degenerate**: they have multiple optimal solutions with identical objective values. The LP solver is free to return any of them. When one run and another differ by a single last bit in a constraint coefficient, the solver may pick a different vertex on the same flat optimal face. Same growth rate, different flux distribution. Different secretion profile. Different nutrient environment next step. One timestep later, the trajectories have diverged.
 
 I found this empirically: in a pair of species where one model had an unconstrained demand reaction for sodium (`DM_NA1`, an ATP-neutral loop), a last-bit difference in the medium vector was enough to switch that loop on or off — at zero cost to growth, but with downstream effects on the sodium available to the other species. The two orders agreed to full precision through cycle 2, diverged at cycle 3, and were on clearly different paths by cycle 5.
 
-**The fix (O1):** Sort models by file name before accumulating — a key that doesn't depend on arrival order — and walk that fixed order at every accumulation site. The sort is computed once at the top of the timestep, before any biomass values are mutated, and reused everywhere.
+**The fix :** Sort models by file name before performing any addition — a key that doesn't depend on arrival order — and walk that fixed order during summation. The sort is computed once at the top of the timestep, before any biomass values are mutated, and reused everywhere.
 
-### The Clamp That Creates Mass
-
-The second order-dependence problem is worse because it's not just a last-bit issue — it can produce macroscopically wrong results.
-
-When COMETS updates the nutrient medium after all models have run, it calls `changeModelMedia()` once per model. That function does two things:
-
-```java
-media[k] += delta;                     // add this model's consumption/secretion
-if (media[k] < 0) media[k] = 0;       // clamp to zero if negative
-```
-
-This clamp — sensible in isolation, you can't have negative nutrient concentrations — becomes pathological when applied sequentially across models. Consider a simple example: a metabolite at 5 mmol, with model A consuming 8 mmol and model B secreting 4 mmol.
-
-| Processing order | Result |
-|---|---|
-| A first, then B | `5 − 8 = −3` → clamp → `0`, then `0 + 4 = **4 mmol**` |
-| B first, then A | `5 + 4 = 9`, then `9 − 8 = **1 mmol**` |
-
-The final medium concentration is 4 in one order and 1 in the other. Three millimoles appeared from nowhere in the first case. This is not floating-point noise — this is a straightforward violation of mass conservation, and it depends entirely on which model gets processed first.
-
-**The fix (O2):** Before any call to `changeModelMedia`, combine all models' deltas for each metabolite into a single net change, assign that net change to exactly one canonically chosen "owner" model, and set every other model's delta for that metabolite to zero. Then let the loop run as before — the owner applies the net change and gets clamped once, the others add exactly `0.0` (a no-op in IEEE-754 arithmetic, always). One addition, one clamp, per metabolite, per timestep. Mass is conserved.
 
 ---
 
