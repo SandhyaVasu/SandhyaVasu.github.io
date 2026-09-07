@@ -8,7 +8,7 @@ summary: A year of chasing bugs in COMETS — and what they taught me about floa
 {: .fig-right}
 ![intro](/assets/posts/intro_comet.png)
 This tale started with something that should not have been possible.
-
+<br>
 I was working on a course project in computational systems biology — a relatively simple simulation of three microorganisms, trying to model butyrate production in a community. The goal was straightforward: run dynamic flux balance analysis, see if the organisms grow, and note what they produce. I was using COMETS, a well-regarded Java-based platform with a Python wrapper, built by the Segrè Lab at Boston University. It had a good reputation. I expected to spend a few hours on setup and then get to the biology.
 
 Instead, I found something that made me sit and stare at my screen for a long time.
