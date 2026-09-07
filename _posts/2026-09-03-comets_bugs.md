@@ -3,18 +3,18 @@ title: When the Order You Add Species Changes Your Science
 date: 2026-09-07
 category: from-the-lab
 tags: [COMETS, ]
-summary: A year of chasing bugs in COMETS — and what they taught me about floating-point arithmetic, open-source science, and why I love a tool enough to fix it myself
+summary: A year of chasing bugs in COMETS — and what they taught me about floating-point arithmetic, science, and perseverance 
 ---
 
 It started with something that should not have been possible.
 
 I was working on a course project in computational systems biology — a relatively simple simulation of three microorganisms, trying to model butyrate production in a community. The goal was straightforward: run dynamic flux balance analysis, see if the organisms grow, see what they produce. I was using COMETS, a well-regarded Java-based platform with a Python wrapper, built by the Segre Lab at Boston University. It had a good reputation. I expected to spend a few hours on setup and then get to the biology.
 
-Instead I found something that made me sit and stare at my screen for a long time.
+Instead, I found something that made me sit and stare at my screen for a long time.
 
 When I added the three species to the simulation in the order A, B, C, I got one set of growth trajectories. When I added them as B, C, A — same species, same parameters, same initial conditions, same everything, just a different order at `t = 0` — I got a completely different result. Not a small floating-point rounding difference. Different trajectories. Curves that diverged and went their own ways.
 
-I had not changed the biology. I had only changed the order of three function calls in a setup script.
+I had not changed the biology. I had only changed the order of the models in the array, and that too at `t = 0`!
 
 This is the story of what I found when I looked into why.
 
@@ -24,45 +24,43 @@ This is the story of what I found when I looked into why.
 
 Before I get into the debugging, let me briefly explain what this tool is and why it matters — because it will make the bugs more meaningful.
 
-COMETS (COnstrainedMinimisation of Exchange-Reactions via Triangulated System) is a platform for simulating microbial communities in space and time. It uses **dynamic flux balance analysis (dFBA)** — a method that takes the constraint-based metabolic models we build for individual organisms and runs them forward through time in a shared environment. Every time step, each organism "decides" what to consume and produce based on what nutrients are available, its own metabolic network, and whatever bounds you've set. The environment updates. You repeat.
+COMETS (Computation of Microbial Ecosystems in Time and Space) is an excellent platform for simulating microbial communities in space and time. It uses **dynamic flux balance analysis (dFBA)** — a method that takes the constraint-based metabolic models we build for individual organisms and runs them forward through time in a shared environment. Every time step, each organism "decides" what to consume and produce based on what nutrients are available, its own metabolic network, and whatever bounds you've set. The environment updates. You repeat.
 
 This is powerful because you can model how community composition evolves, what nutrients get depleted or accumulated, and how organisms compete or cooperate — all grounded in actual metabolic networks rather than hand-tuned equations.
-
-The specific question I study is **priority effects**: whether the order in which species arrive in a community changes its final composition. It is, frankly, a terrible kind of research project to run on a tool that turned out to be sensitive to model arrival order for reasons having nothing to do with biology. But that discovery came later.
 
 ---
 
 ## March 2025: Something Is Very Wrong
 
-Back to the anomaly. I reported it as an issue on the COMETS GitHub repository and described what I was seeing. I also filed a second issue I'd noticed: occasionally the simulation would crash with an `ArrayIndexOutOfBoundsException` — Java's way of telling you that something tried to read a memory location that doesn't exist.
+The primary problem — the one that stopped me cold — was an `ArrayIndexOutOfBoundsException`. Java's way of telling you that something tried to read a memory location that doesn't exist. I raised it on the COMETS GitHub repository. By adjusting some parameters I managed to get past it, which at the time felt like a solution: the crash went away, the project could proceed, and I had a deadline.
 
-The response was helpful but inconclusive, and I had a course project to submit. I documented what I'd seen, moved on, and filed it away as "something to return to."
+I did notice, in the course of those runs, that different model arrival orders were producing different trajectories. But I didn't investigate it or report it — I noted it, filed it somewhere in the back of my head, and submitted the project.
+
+The order-dependence issue came back to me in September 2025, when I raised it as a separate GitHub issue. By then I had enough distance from the project to describe what I was seeing clearly. The response was helpful but couldn't pin down a cause, and I didn't yet have the tools to look deeper.
 
 ---
 
 ## December 2025: The Units Rabbit Hole
 
-I came back to COMETS in December, determined to get things working properly. This time the problem wasn't the order bug — it was the parameters.
+I came back to COMETS in December, determined to get things working properly. This time, the problem wasn't just the order bug or the `ArrayIndexOutOfBoundsException` error — it was the parameters.
 
-COMETS uses Michaelis-Menten kinetics to model nutrient uptake. You supply a `Km` value — the half-saturation constant, the nutrient concentration at which uptake rate is half its maximum. But what **units** does COMETS expect for `Km`?
+COMETS uses Michaelis-Menten kinetics to model nutrient uptake. You supply a `Km` value — the half-saturation constant, the nutrient concentration at which the uptake rate is half its maximum. But what **units** does COMETS expect for `Km`?
 
-The documentation was not explicit about this. Published papers using COMETS had used different conventions. I became convinced, through a combination of reading and misreading, that the answer was millimolar (mM). This felt right to me — Km values in microbiology are commonly cited in millimolar.
+I could not find clarity in the documentation. I went back and forth from the COMETS paper to their supplementary material to their worked-out examples on the website. Adding to the confusion, published papers using COMETS had used different conventions — mM and M! I became convinced, through a combination of reading and misreading, that the answer was millimolar (mM). This felt right to me — Km values in microbiology are commonly cited in millimolar. With this, I was able to circumvent the error to some extent.
 
-I was wrong. COMETS expects molar (M). I would not discover this until March 2026. In the meantime I had built a set of simulations on a foundation that was off by a factor of a thousand.
-
-> **A note on documentation:** I want to be careful here, because it's genuinely easy to get this wrong. The COMETS team has built something remarkable and has documented it considerably. But the gap between a working Python wrapper and a complete understanding of what's happening in the Java backend is real, and for Km units specifically, clarity is hard to find without going back to primary sources. This is not a criticism so much as an honest record of the obstacle.
+But I was wrong. COMETS expects molar (M). I would not discover this until March 2026. In the meantime, I had built a set of simulations on a foundation that was off by a factor of a thousand.
 
 ---
 
 ## March 2026: Complete Chaos
 
-By March 2026 I had realised my Km units were wrong, corrected them, and was still getting the `ArrayIndexOutOfBoundsException`. The order-dependence from a year ago had never been explained. The re-optimisation loop — a mechanism inside COMETS that's supposed to prevent over-consumption of nutrients — would occasionally hang indefinitely.
+By March 2026, I had realised my Km units were wrong, corrected them, but was not stuck with the `ArrayIndexOutOfBoundsException`. The order-dependence from a year ago had never been explained. The re-optimisation loop — a mechanism inside COMETS that's supposed to prevent over-consumption of nutrients — would occasionally hang indefinitely.
 
-The tool felt broken in ways I couldn't diagnose because the relevant logic was inside Java bytecode I hadn't read.
+The tool felt broken in ways I couldn't diagnose because the relevant logic was inside Java script I hadn't read.
 
 I went to my advisor. I told him I couldn't trust the results and I was considering switching to a different dFBA platform entirely.
 
-His response was, essentially: before you abandon it, why don't you go into the Java and fix it?
+He had a different idea. He had earlier pointed me to a paper by Andreas Wagner that described a resource-partitioning approach to dFBA — a fundamentally different way of handling nutrient uptake in a community. In stock COMETS, each species computes how much it can consume as if it were alone in the cell, and over-consumption is corrected after the fact. Wagner's approach partitions nutrients *before* any FBA runs: each species gets a share proportional to its biomass relative to the whole community. My advisor thought this was probably the root of the problem, and his suggestion was direct: go into the Java source and rewrite the uptake logic to match Wagner.
 
 I want to be honest about what I felt when he said that. I do not know Java. I had never decompiled a JAR file. The idea of going into the source code of a scientific computing tool and editing it felt like a thing other people did — people who were primarily software engineers, not biology students with a Python habit.
 
@@ -77,6 +75,8 @@ So I did.
 The COMETS distribution ships as a compiled JAR file — a bundle of Java bytecode. To see the source, you have to **decompile** it: run a tool that reads the bytecode and reconstructs (approximately) the Java it came from. The result isn't always perfect — decompilers fill in syntax, and sometimes they get it slightly wrong — but it's readable.
 
 The file I needed was `FBACell.java`. It contains the `run()` method — the function that executes one timestep of the dFBA simulation for a single grid cell. Every decision about nutrient uptake, every call to the linear programming solver, every update to biomass and medium concentrations — it's in there. It's also about a thousand lines long.
+
+The specific goal was to find where COMETS computed nutrient uptake rates and rewrite it to match Wagner's method. That meant understanding two things: what Wagner's algorithm actually does in mathematical terms, and what the existing COMETS code does — line by line, array by array — so I could make a change I could defend.
 
 I started at the beginning and started asking questions. What does this variable mean? What does this line do? What is this index counting? Why is this array this length?
 
@@ -176,7 +176,21 @@ The final medium concentration is 4 in one order and 1 in the other. Three milli
 
 **The fix (O2):** Before any call to `changeModelMedia`, combine all models' deltas for each metabolite into a single net change, assign that net change to exactly one canonically chosen "owner" model, and set every other model's delta for that metabolite to zero. Then let the loop run as before — the owner applies the net change and gets clamped once, the others add exactly `0.0` (a no-op in IEEE-754 arithmetic, always). One addition, one clamp, per metabolite, per timestep. Mass is conserved.
 
-> **A note on the Wagner algorithm:** The second build I produced doesn't just fix these bugs — it replaces COMETS's stock uptake logic with the resource-partitioning algorithm described by Andreas Wagner. In stock COMETS, each species computes its uptake bound as if it were alone in the cell: it sees the entire nutrient pool and competes only after the fact. Wagner's method partitions nutrients *before* any FBA runs: each species gets a share proportional to its biomass relative to the whole community. Over-consumption becomes arithmetically impossible (rather than caught and corrected). This is the scientifically cleaner approach for competitive community simulations. The bugs above also exist in that build and are fixed there, but the clamp-creates-mass problem is less severe because the pre-FBA partitioning means the clamp rarely fires. In the stock build, it fires regularly.
+---
+
+## Two Builds, Not One
+
+The Wagner implementation was the primary mission, and it came together over the course of that month. All three fixes above — the index bug, the floating-point accumulation order, the clamp — were applied there first.
+
+But something else fell out in the process.
+
+To evaluate whether Wagner's partitioning actually *changes* the science, I needed a clean comparison arm: a version of COMETS running the original stock uptake logic, but with the same bugs fixed and nothing else altered. If I compared Wagner against unfixed stock, I couldn't tell whether any differences came from the partitioning algorithm or from the implementation bugs. The comparison would be meaningless.
+
+So the stock-fixed build was not planned — it emerged naturally from the Wagner work. Once I had identified and fixed the index bug and both order-dependence problems in the Wagner build, the same fixes applied directly to the stock code. The result is two verified builds that differ in exactly one thing: whether nutrient uptake uses Wagner's community-denominator partitioning or COMETS's original per-species logic. Every other line of code is identical.
+
+**Why the two approaches differ scientifically:** In stock COMETS, each species sees the entire nutrient pool as if it were alone in the cell. Summed across a community, intended uptake can and does exceed what is physically present — the re-optimisation loop is supposed to catch this after the fact, but as we've seen, it has its own problems. In Wagner's approach, nutrients are partitioned *before* any FBA runs. Each species' uptake bound is computed using the total community biomass of all species with an exchange reaction for that metabolite as the denominator, so each species receives a share proportional to its own biomass. Over-consumption becomes arithmetically impossible rather than something to be corrected. For a competitive chemostat study, this is the scientifically cleaner foundation.
+
+The Wagner build is the one I'll be running my simulations on. The stock-fixed build is the control.
 
 ---
 
@@ -214,11 +228,11 @@ I did not migrate to another tool. I preferred to understand this one.
 
 ## A Note on the Journey's Shape
 
-Looking back, this took roughly eighteen months of on-and-off engagement: initial discovery in March 2025, a confusing detour through unit conventions in December 2025, the collapse in March 2026 when everything seemed broken at once, and then a month of focused work from late July to late August 2026 that produced two verified builds.
+Looking back, this took roughly eighteen months of on-and-off engagement: initial discovery in March 2025, a confusing detour through unit conventions in December 2025, the collapse in March 2026 when everything seemed broken at once, and then a month of focused work from late July to late August 2026 that produced two verified builds — the Wagner implementation I originally set out to build, and a clean stock-COMETS build that came along for free.
 
 The non-linear shape of it is, I think, typical of this kind of work. You notice something odd, you don't have the tools to understand it yet, you move on. You come back with more knowledge. You get the wrong answer for a while. Eventually you have enough context that the pieces fit together.
 
-I don't think I would have found the bugs if I hadn't hit the crashes. I don't think I would have understood the crashes without understanding the index spaces. I don't think I would have understood the order-dependence without understanding how LP degeneracy translates a last-bit perturbation into a macroscopic difference. Each piece required the ones before it.
+I don't think I would have found the bugs if I hadn't set out to implement Wagner. I don't think I would have understood the crashes without understanding the index spaces. I don't think I would have understood the order-dependence without understanding how LP degeneracy translates a last-bit perturbation into a macroscopic difference. Each piece required the ones before it.
 
 If you're using COMETS for multi-species simulations — particularly priority-effect studies, where you're explicitly varying the order of model arrival — I hope this is useful. The fixed builds, along with the full change documentation, are part of this project's repository.
 
