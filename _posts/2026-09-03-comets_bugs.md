@@ -6,7 +6,7 @@ tags: [COMETS, floating point]
 summary: A year of chasing bugs in COMETS — and what they taught me about floating-point arithmetic, science, and perseverance 
 ---
 {: .fig-right}
-![intro](/assets/posts/intro.png)
+![intro](/assets/posts/intro_comet.png)
 
 This tale started with something that should not have been possible.
 
